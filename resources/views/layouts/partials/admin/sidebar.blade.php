@@ -25,10 +25,28 @@
             'active' => request()->routeIs('admin.subcategories.*'),
         ],
         [
-            'icon' => 'fa-solid fa-box-open',
+            'icon' => 'fa-solid fa-box',
             'name' => 'Productos',
             'route' => route('admin.products.index'),
             'active' => request()->routeIs('admin.products.*'),
+        ],
+        [
+            'icon' => 'fa-solid fa-cog',
+            'name' => 'Opciones',
+            'route' => route('admin.options.index'),
+            'active' => request()->routeIs('admin.options.*'),
+        ],
+        [
+            'icon' => 'fa-solid fa-box',
+            'name' => 'Variantes',
+            'route' => route('admin.variants.index'),
+            'active' => request()->routeIs('admin.variants.*'),
+        ],
+        [
+            'icon' => 'fa-solid fa-box',
+            'name' => 'Portadas',
+            'route' => route('admin.variants.index'),
+            'active' => request()->routeIs('admin.variants.*'),
         ],
     ];
 @endphp

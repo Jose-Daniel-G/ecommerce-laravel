@@ -18,10 +18,9 @@ class SubcategoryController extends Controller
 
         return view('admin.subcategories.index', compact('subcategories'));
     }
-    public function create(Request $request)
+    public function create()
     {
-        $categories = Category::all();
-        return view('admin.subcategories.create',compact('categories'));
+        return view('admin.subcategories.create');
     }
     public function store(Request $request)
     {
@@ -35,10 +34,9 @@ class SubcategoryController extends Controller
 
         return redirect()->route('admin.subcategories.index');
     }
-    public function edit(Subcategory $category)
+    public function edit(Subcategory $subcategory)
     {
-        $categories = Category::all();
-        return view('admin.subcategories.edit', compact('category','categories'));
+        return view('admin.subcategories.edit', compact('subcategory'));
     }
     public function update(Request $request, Subcategory $category)
     {
@@ -51,14 +49,14 @@ class SubcategoryController extends Controller
         session()->flash('swal',['icon'=>'success', 'title'=>'!Bien echo', 'text'=>'Subcategoria actualizada correctamente']);
         return redirect()->route('admin.subcategories.edit', $category);
     }
-    public function destroy(Subcategory $category)
+    public function destroy(Subcategory $subcategory)
     {
-        if($category->subsubcategories->count()>0){
-            session()->flash('swal',['icon'=>'error', 'title'=>'Ups!', 'text'=>'No se puede eliminar la categoria porque tiene subcategorias asociadas']);
-            return redirect()->route('admin.subcategories.edit',$category);
+        if($subcategory->products->count()>0){
+            session()->flash('swal',['icon'=>'error', 'title'=>'Ups!', 'text'=>'No se puede eliminar la subcategoria porque tiene productos asociados']);
+            return redirect()->route('admin.subcategories.edit',$subcategory);
         }
         session()->flash('swal',['icon'=>'success', 'title'=>'!Bien echo', 'text'=>'Subcategoria eliminada correctamente']);
-        $category->delete();
+        $subcategory->delete();
 
         return redirect()->route('admin.subcategories.index');
     }

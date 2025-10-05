@@ -8,37 +8,12 @@
         'route' => route('admin.categories.index'),
     ],
     [
-        'name' => $category->name,
+        'name' => $subcategory->name,
     ],
 ]">
-    <div class="card">
-        <form action="{{ route('admin.categories.update', $category) }}" method="post">
-            @csrf
-            @method('PUT')
-            <x-label class="mb-2">Familia</x-label>
-            <x-select name="category_id" class="w-full">
-                @foreach ($subcategories as $category)
-                    <option value="{{ $category->id }}" {{ $category->id == $category->category_id ? 'selected' : '' }}>
-                        {{ $category->name }}
-                    </option>
-                @endforeach
-            </x-select>
-            <div class="mb-2">
-                <x-label class="mb-2">Nombre</x-label>
-                <x-input class="w-full" placeholder="Ingrese el nombre de la familia" name="name"
-                    value="{{ old('name', $category->name) }}"></x-input>
-            </div>
-            <div class="flex justify-end">
-                <x-danger-button onclick="confirmDelete()">Eliminar</x-danger-button>
-                <x-button class="ml-2">Actualizar</x-button>
-            </div>
-        </form>
+    
+        @livewire('admin.subcategories.subcategory-edit',compact('subcategory'))
 
-    </div>
-    <form action="{{ route('admin.categories.destroy', $category) }}" id="delete-form" method="POST">
-        @csrf
-        @method('DELETE')
-    </form>
     @push('js')
         <script>
             function confirmDelete() {

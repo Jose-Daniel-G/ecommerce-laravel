@@ -12,7 +12,7 @@ class Product extends Model
 
     public function subcategory()
     { //relacion muchos a muchos inversa
-        return $this->belongs(Subcategory::class);
+        return $this->belongsTo(Subcategory::class);
     }
     public function variants()
     { //relacion uno a muchos

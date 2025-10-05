@@ -51,6 +51,9 @@
             Swal.fire( @json(session('swal')) );
         </script>
     @endif
+        <script>
+            Livewire.on('swal',data=>{Swal.fire(data[0]);});
+        </script>
 </body>
 
 </html>

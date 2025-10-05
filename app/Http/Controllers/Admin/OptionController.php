@@ -3,17 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Product;
+use App\Models\Option;
 use Illuminate\Http\Request;
 
-class ProdutController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     */
+class OptionController extends Controller
+{ 
     public function index()
     {
-        //
+        return view('admin.options.index');
     }
 
     /**
@@ -35,7 +32,7 @@ class ProdutController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
+    public function show(Option $option)
     {
         //
     }
@@ -43,7 +40,7 @@ class ProdutController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product $product)
+    public function edit(Option $option)
     {
         //
     }
@@ -51,7 +48,7 @@ class ProdutController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, Option $option)
     {
         //
     }
@@ -59,7 +56,7 @@ class ProdutController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product)
+    public function destroy(Option $option)
     {
         //
     }
