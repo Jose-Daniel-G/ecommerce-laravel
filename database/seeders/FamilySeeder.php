@@ -17,7 +17,9 @@ class FamilySeeder extends Seeder
     {
         $families = [
             'Tecnología' => [
+                //CATEGORIES
                 'Televisores' => [
+                    //SUBCATEGORIES 
                     'Accesorios para TV',
                     'LED',
                     'OLED',
@@ -939,14 +941,23 @@ class FamilySeeder extends Seeder
                 ],
             ],
         ];
-        foreach ($families as $family => $categories) {
-            $family = Family::create(['name'=>$family]);
-            foreach ($categories as $category => $subcategories) {
-                $category =Category::create(['name'=>$category, 'family_id'=>$family->id]);
+        foreach ($families as $familyName => $categories) {
+            $family = Family::create(['name' => $familyName]);
+
+            foreach ($categories as $categoryName => $subcategories) {
+                $category = Category::create([
+                    'name' => $categoryName,
+                    'family_id' => $family->id
+                ]);
+
+                // Crear subcategorías
+                foreach ($subcategories as $subcategoryName) {
+                    Subcategory::create([
+                        'name' => $subcategoryName,
+                        'category_id' => $category->id
+                    ]);
+                }
             }
-        }
-        foreach ($subcategories as $subcategory) {
-                $subcategory =Subcategory::create(['name'=>$category, 'category_id'=>$category->id]);
         }
     }
 }

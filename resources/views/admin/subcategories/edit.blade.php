@@ -16,10 +16,10 @@
             @csrf
             @method('PUT')
             <x-label class="mb-2">Familia</x-label>
-            <x-select name="family_id" class="w-full">
-                @foreach ($families as $family)
-                    <option value="{{ $family->id }}" {{ $family->id == $category->family_id ? 'selected' : '' }}>
-                        {{ $family->name }}
+            <x-select name="category_id" class="w-full">
+                @foreach ($subcategories as $category)
+                    <option value="{{ $category->id }}" {{ $category->id == $category->category_id ? 'selected' : '' }}>
+                        {{ $category->name }}
                     </option>
                 @endforeach
             </x-select>
@@ -66,16 +66,7 @@
                         //     text: "Your file has been deleted.",
                         //     icon: "success"
                         // });
-                    } else if (
-                        /* Read more about handling dismissals below */
-                        result.dismiss === Swal.DismissReason.cancel
-                    ) {
-                        // swalWithBootstrapButtons.fire({
-                        //     title: "Cancelled",
-                        //     text: "Your imaginary file is safe :)",
-                        //     icon: "error"
-                        // });
-                    }
+                    } 
                 });
             }
         </script>

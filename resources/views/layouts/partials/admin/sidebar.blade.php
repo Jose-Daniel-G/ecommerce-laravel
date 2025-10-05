@@ -13,22 +13,22 @@
             'active' => request()->routeIs('admin.families.*'),
         ],
         [
-            'icon' => 'fa-solid fa-box-open',
+            'icon' => 'fa-solid fa-tags',
             'name' => 'Categorias',
-            'route' => route('admin.families.index'),
-            'active' => request()->routeIs('admin.families.*'),
+            'route' => route('admin.categories.index'),
+            'active' => request()->routeIs('admin.categories.*'),
         ],
         [
-            'icon' => 'fa-solid fa-box-open',
+            'icon' => 'fa-solid fa-tag',
             'name' => 'Subcategorias',
-            'route' => route('admin.families.index'),
-            'active' => request()->routeIs('admin.families.*'),
+            'route' => route('admin.subcategories.index'),
+            'active' => request()->routeIs('admin.subcategories.*'),
         ],
         [
             'icon' => 'fa-solid fa-box-open',
             'name' => 'Productos',
-            'route' => route('admin.families.index'),
-            'active' => request()->routeIs('admin.families.*'),
+            'route' => route('admin.products.index'),
+            'active' => request()->routeIs('admin.products.*'),
         ],
     ];
 @endphp
@@ -40,8 +40,8 @@
         <ul class="space-y-2 font-medium">
             @foreach ($links as $link)
                 <li>
-                    <a href="{{$link['route']}}"
-                        class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100 dark:hover:bg-gray-700 group {{$link['active']?'bg-gray-100 ':'dark:text-white'}}">
+                    <a href="{{ $link['route'] }}"
+                        class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100 dark:hover:bg-gray-700 group {{ $link['active'] ? 'bg-gray-100 ' : 'dark:text-white' }}">
                         <span class="inline-flex w-6 h-6 justify-center items-center"><i
                                 class="{{ $link['icon'] }}"></i></span>
                         <span class="ms-2">{{ $link['name'] }}</span>

@@ -9,7 +9,7 @@ class Subcategory extends Model
 {
     use HasFactory;
     protected $fillable = ['name', 'category_id'];
-    public function categories(){ //relacion uno a muchos inversa
+    public function category(){ //relacion uno a muchos inversa
         return $this->belongsTo(Category::class);
     }
     public function products(){ //relacion uno a muchos 
