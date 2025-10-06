@@ -67,7 +67,7 @@
                 <hr class="flex-1">
             </div>
             <div class="mb-4 space-y-4">
-                @foreach ($newOption['features'] as $index => $feature)
+                @foreach ($newOption->features as $index => $feature)
                     <div class="p-6 rounded-lg border border-gray-200 relative">
                         <div class="grid grid-cols-2 gap-6" wire:key="features-{{ $index }}">
                             <div class="absolute -top-3 px-4 bg-white border rounded-lg">
@@ -77,7 +77,7 @@
                             <div>
                                 <x-label class="mb-1">Valor</x-label>
 
-                                @switch($newOption['type'])
+                                @switch($newOption->type)
                                     @case(1)
                                     {{-- Texto  --}}
                                         <x-input wire:model="newOption.features.{{ $index }}.value" class="w-full"
