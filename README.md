@@ -1,8 +1,8 @@
 Family
  └── Category
        └── Subcategory
-27->37->48
-
+27->37->48->56
+    10  11  8
 Based on the course structure you provided, the total number of chapters is 68. Since you've already completed up to chapter 27, you have 41 chapters left (68−27=41).
 
 The time it will take you to finish the course largely depends on your study pace and consistency in the remaining 41 chapters.
@@ -40,8 +40,8 @@ You're already doing great by reaching chapter 27! Keep up the momentum.
   <summary>🧱 Variantes (6 pasos)</summary>
 
   - [x] Crear variantes 1  
-  - [ ] Crear variantes 2  
-  - [ ] Recursividad  
+  - [x] Crear variantes 2  
+  - [x] Recursividad  
   - [ ] Generar variantes  
   - [ ] Mostrar variantes  
   - [ ] Editar variantes  
@@ -67,4 +67,15 @@ You're already doing great by reaching chapter 27! Keep up the momentum.
 - [ ] Administrar Órdenes  
 - [ ] Solucionar Errores  
 - [ ] Stock  
-- [ ] Laravel Permission
+<details>
+  <summary>Laravel Permission (7 pasos)</summary>
+
+  - [x] Instalar spatie  
+  - [x] Definir Permisos  
+  - [x] Definir Roles  
+  - [x] Proteger rutas segun lo permisos  
+  - [ ] Mostrar listado de usuarios 
+  - [ ] Agregar Buscador  
+  - [ ] Asignar Rol 
+
+</details>

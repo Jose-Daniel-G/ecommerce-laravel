@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 
 class FamilyController extends Controller
 {
+    //    public function __construct()
+    // {
+    //     $this->middleware('can:manage options');
+    // }
     public function index()
     {
         // $families = Family::paginate();

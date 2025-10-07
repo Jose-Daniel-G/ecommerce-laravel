@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,9 +23,10 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         $this->call([
+            PermissionSeeder::class,
+            RoleSeeder::class,
             FamilySeeder::class,
             OptionSeeder::class,
-            RoleSeeder::class,
             AdminSeeder::class,
         ]);
          Product::factory(150)->create();

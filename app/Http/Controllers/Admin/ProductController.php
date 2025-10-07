@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
+    //public function __construct()
+    // {
+    //     $this->middleware('can:manage products');
+    // }
     public function index()
     {
         // $products = Product::paginate();

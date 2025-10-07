@@ -17,13 +17,17 @@ class AdminSeeder extends Seeder
     {
         User::factory()->create([
             'name' => 'Administrador',
+            'last_name' => 'Admin ',
+            'phone' => '9514268',
             'email' => 'admin@email.com',
             'email_verified_at' => now(),
             'password' => bcrypt('123123123'),
         ])->assignRole('admin');
 
         User::create([
-            'name' => 'Jose Daniel Grijalba Osorio',
+            'name' => 'Jose Daniel',
+            'last_name' => 'Grijalba Osorio',
+            'phone' => '9514268',
             'email' => 'jose.jdgo97@gmail.com',
             'email_verified_at' => now(),
             'password' => bcrypt('123123123'),

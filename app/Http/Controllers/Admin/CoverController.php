@@ -8,9 +8,10 @@ use Illuminate\Http\Request;
 
 class CoverController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    //public function __construct()
+    // {
+    //     $this->middleware('can:manage covers');
+    // }
     public function index()
     {
         // $cover = Cover::orderBy('id', 'desc')->paginate(10);

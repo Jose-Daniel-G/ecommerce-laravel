@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 
 class SubcategoryController extends Controller
 {
+    //    public function __construct()
+    // {
+    //     $this->middleware('can:manage subcategories');
+    // }
     public function index()
     {
         // $subcategories = Subcategory::paginate();

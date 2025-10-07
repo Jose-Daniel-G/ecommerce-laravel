@@ -7,60 +7,82 @@
             </div>
         </header>
         <div class="p-6">
-            <div class="space-y-6">
-                @foreach ($product->options as $option)
-                    <div wire:key="product-option-{{ $option->id }}"
-                        class="p-6 rounded-lg border border-gray-200 relative">
-                        <div class="absolute -top-3 px-4 bg-white"><button>
-                                <i class="fa-solid fa-trash-can text-red-500 hover:text-red-700"></i></button>
+            @if ($product->options->count())
+                <div class="space-y-6">
+                    @foreach ($product->options as $option)
+                        <div wire:key="product-option-{{ $option->id }}"
+                            class="p-6 rounded-lg border border-gray-200 relative">
+                            <div class="absolute -top-3 px-4 bg-white">
+                                <button onclick="confirmDeleteOption({{ $option->id }})">
+                                    <i class="fa-solid fa-trash-can text-red-500 hover:text-red-700"></i></button>
+                            </div>
+                            <span class="ml-2">
+                                {{ $option->name }}
+                            </span>
+                            {{-- Valores  --}}
+                            <div class="flex flex-wrap">
+                                @foreach ($option->pivot->features as $feature)
+                                    <div wire:key="option-{{ $option->id }}-feature-{{ $feature['id'] }}">
+                                        @switch($option->type)
+                                            @case(1)
+                                                {{-- Texto --}}
+                                                <span
+                                                    class="bg-gray-100 text-gray-800 text-xs font-medium me-2 pl-2.5 pr-1.5 py-0.5 rounded-sm dark:bg-gray-700 dark:text-gray-300">{{ $feature['description'] }}
+                                                    <button class="ml-0.5"
+                                                        onclick="confirmDeleteFeature({{ $option->id }}, {{ $feature['id'] }})">
+                                                        <li class="fa-solid fa-xmark hover:text-red-500"></li>
+                                                    </button>
+
+                                                </span>
+                                            @break
+
+                                            @case(2)
+                                                {{-- Color --}}
+                                                <div class="relative">
+                                                    <span
+                                                        class="inline-block h-6 w-6 shadow-lg rounded-full border-2 border-gray-300 mr-2"
+                                                        style="background-color:{{ $feature['value'] }}">
+                                                    </span>
+                                                    <button
+                                                        onclick="confirmDeleteFeature({{ $option->id }}, {{ $feature['id'] }})"
+                                                        class="absolute z-10 left-3 -top-2 rounded-full bg-red-500 hover:bg-red-700 h-4 w-4 flex justify-center items-center">
+                                                        <li class="fa-solid fa-xmark text-white text-xs"></li>
+                                                    </button>
+                                                </div>
+                                            @break
+
+                                            @case(3)
+                                                {{-- Sexo --}}
+                                                <span
+                                                    class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-gray-700 dark:text-gray-300">{{ $feature['description'] }}
+                                                    <button  onclick="confirmDeleteFeature({{ $option->id }}, {{ $feature['id'] }})">
+                                                        <li class="fa-solid fa-xmark hover:text-red-500"></li>
+                                                    </button> </span>
+                                            @break
+
+                                            @default
+                                        @endswitch
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
-                        <span class="ml-2">
-                            {{ $option->name }}
-                        </span>
-                        {{-- Valores  --}}
-                        <div class="flex flex-wrap">
-                            @foreach ($option->pivot->features as $feature)
-                                @switch($option->type)
-                                    @case(1)
-                                        {{-- Texto --}}
-                                        <span
-                                            class="bg-gray-100 text-gray-800 text-xs font-medium me-2 pl-2.5 pr-1.5 py-0.5 rounded-sm dark:bg-gray-700 dark:text-gray-300">{{ $feature['description'] }}
-                                            <button class=" ml-0.5" onclick="confirmDeleteFeature({{$option->id, $feature['id'] }},'feature')">
-                                                <li class="fa-solid fa-xmark hover:text-red-500"></li>
-                                            </button>
-                                        </span>
-                                    @break
-
-                                    @case(2)
-                                        {{-- Color --}}
-                                        <div class="relative">
-                                            <span
-                                                class="inline-block h-6 w-6 shadow-lg rounded-full border-2 border-gray-300 mr-2"
-                                                style="background-color:{{ $feature['value'] }}">
-                                            </span>
-                                            <button onclick="confirmDelete({{ $feature['id'] }})"
-                                                class="absolute z-10 left-3 -top-2 rounded-full bg-red-500 hover:bg-red-700 h-4 w-4 flex justify-center items-center">
-                                                <li class="fa-solid fa-xmark text-white text-xs"></li>
-                                            </button>
-                                        </div>
-                                    @break
-
-                                    @case(3)
-                                        {{-- Sexo --}}
-                                        <span
-                                            class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-gray-700 dark:text-gray-300">{{ $feature->description }}
-                                            <button>
-                                                <li class="fa-solid fa-xmark hover:text-red-500"></li>
-                                            </button> </span>
-                                    @break
-
-                                    @default
-                                @endswitch
-                            @endforeach
-                        </div>
+                    @endforeach
+                </div>
+            @else
+                <div class="flex items-center p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400"
+                    role="alert">
+                    <svg class="shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                    </svg>
+                    <span class="sr-only">Info</span>
+                    <div>
+                        <span class="font-medium">Info alert!</span> No hay Opciones para ese producto.
                     </div>
-                @endforeach
-            </div>
+                </div>
+            @endif
+
         </div>
     </section>
     <x-dialog-modal wire:model="openModal">
@@ -125,10 +147,7 @@
                     cancelButtonText: "Cancelar"
                 }).then((result) => {
                     if (result.isConfirmed) {
-
                         @this.call('deleteFeature', option_id, feature_id);
-
-
                     }
                 });
 

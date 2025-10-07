@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    //    public function __construct()
+    // {
+    //     $this->middleware('can:manage categories');
+    // }
      public function index()
     {
         // $categories = Category::paginate();

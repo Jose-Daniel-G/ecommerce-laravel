@@ -42,18 +42,24 @@
             'route' => route('admin.covers.index'),
             'active' => request()->routeIs('admin.covers.*'),
         ],
-        // [
-        //     'icon' => 'fa-solid fa-box',
-        //     'name' => 'Variantes',
-        //     'route' => route('admin.variants.index'),
-        //     'active' => request()->routeIs('admin.variants.*'),
-        // ],
-        // [
-        //     'icon' => 'fa-solid fa-box',
-        //     'name' => 'Portadas',
-        //     'route' => route('admin.variants.index'),
-        //     'active' => request()->routeIs('admin.variants.*'),
-        // ],
+        [
+            'icon' => 'fa-solid fa-car',
+            'name' => 'Conductores', 
+            'route' => route('admin.drivers.index'),
+            'active' => request()->routeIs('admin.drivers.*'),
+        ],        [
+            'icon' => 'fa-solid fa-images',
+            'name' => 'Ordenes',
+            'route' => route('admin.orders.index'),
+            'active' => request()->routeIs('admin.orders.*'),
+        ],
+        [
+            'icon' => 'fa-solid fa-box',
+            'name' => 'Envios',
+            'route' => route('admin.shipments.index'),
+            'active' => request()->routeIs('admin.shipments.*'),
+        ], 
+
     ];
 @endphp
 

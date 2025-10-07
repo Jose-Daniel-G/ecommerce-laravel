@@ -3,18 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Option;
+use App\Models\Shipment;
 use Illuminate\Http\Request;
 
-class OptionController extends Controller
-{ 
-    // public function __construct()
+class ShipmentController extends Controller
+{
+    //public function __construct()
     // {
-    //     $this->middleware('can:manage options');
+    //     $this->middleware('can:manage shipments');
     // }
     public function index()
     {
-        return view('admin.options.index');
+        //
     }
 
     /**
@@ -36,7 +36,7 @@ class OptionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Option $option)
+    public function show(Shipment $shipment)
     {
         //
     }
@@ -44,7 +44,7 @@ class OptionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Option $option)
+    public function edit(Shipment $shipment)
     {
         //
     }
@@ -52,7 +52,7 @@ class OptionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Option $option)
+    public function update(Request $request, Shipment $shipment)
     {
         //
     }
@@ -60,7 +60,7 @@ class OptionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Option $option)
+    public function destroy(Shipment $shipment)
     {
         //
     }

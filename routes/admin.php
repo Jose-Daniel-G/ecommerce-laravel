@@ -3,22 +3,28 @@
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CoberController;
 use App\Http\Controllers\Admin\CoverController;
+use App\Http\Controllers\Admin\DriverController;
 use App\Http\Controllers\Admin\FamilyController;
 use App\Http\Controllers\Admin\OptionController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ShipmentController;
 use App\Http\Controllers\Admin\SubcategoryController;
 use App\Http\Controllers\Admin\VariantController;
+use App\Livewire\Admin\UserComponent;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('admin.dashboard');
-})->name('dashboard');
+})->name('dashboard');//->middleware('can:access dashboard')
 
 Route::resource('families', FamilyController::class);
 Route::resource('categories', CategoryController::class);
 Route::resource('options', OptionController::class);
 Route::resource('subcategories', SubcategoryController::class);
 Route::resource('products', ProductController::class);
+Route::resource('drivers', DriverController::class);
+Route::resource('orders', ShipmentController::class);
+Route::resource('shipments', ShipmentController::class);
 
 // Route::resource('products/{product}/variants/{variant}', [ProductController::class,'index'])
 //         ->name('products.variants')->scopeBindings();
@@ -29,3 +35,16 @@ Route::resource('products', ProductController::class);
 Route::resource('covers', CoverController::class);
 
  
+// Route::get('/', ShowProducts::class)->name('admin.index');
+// Route::get('products/create', CreateProduct::class)->name('admin.products.create');
+// Route::get('products/{product}/edit', EditProduct::class)->name('admin.products.edit');
+// Route::post('products/{product}/files', [ProductController::class, 'files'])->name('admin.products.files');
+// Route::get('orders', [OrderController::class, 'index'])->name('admin.orders.index');
+// Route::get('orders/{order}', [OrderController::class, 'show'])->name('admin.orders.show');
+// Route::get('categories', [CategoryController::class, 'index'])->name('admin.categories.index');
+// Route::get('categories/{category}', ShowCategory::class)->name('admin.categories.show');
+// Route::get('brands', BrandComponent::class)->name('admin.brands.index');
+// Route::get('departments', DepartmentComponent::class)->name('admin.departments.index');
+// Route::get('departments/{department}', ShowDepartment::class)->name('admin.departments.show');
+// Route::get('cities/{city}', CityComponent::class)->name('admin.cities.show');
+Route::get('users', UserComponent::class)->name('admin.users.index');
