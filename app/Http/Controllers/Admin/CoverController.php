@@ -13,9 +13,9 @@ class CoverController extends Controller
      */
     public function index()
     {
-        $cover = Cover::orderBy('id', 'desc')->paginate(10);
-
-        return view('admin.cover.index', compact('cover'));
+        // $cover = Cover::orderBy('id', 'desc')->paginate(10);
+// , compact('cover')
+        return view('admin.covers.index');
     }
 
     /**
@@ -23,7 +23,7 @@ class CoverController extends Controller
      */
     public function create()
     {
-        return view('admin.cover.create');
+        return view('admin.covers.create');
     }
 
     /**
@@ -39,7 +39,7 @@ class CoverController extends Controller
      */
     public function show(Cover $cover)
     {
-        return view('admin.cover.show');
+        return view('admin.covers.show');
     }
 
     /**
@@ -47,7 +47,7 @@ class CoverController extends Controller
      */
     public function edit(Cover $cover)
     {
-        return view('admin.cover.edit', compact('cover'));
+        return view('admin.covers.edit', compact('cover'));
     }
 
     /**

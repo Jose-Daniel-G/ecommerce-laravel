@@ -4,12 +4,12 @@
         'route' => route('admin.dashboard'),
     ],
     [
-        'name' => 'Familias',
-        'route' => route('admin.products.index'),
+        'name' => 'Options',
+        'route' => route('admin.options.index'),
     ],
     [
         'name' => 'Nuevo',
-        'route' => route('admin.products.create'),
+        'route' => route('admin.options.create'),
     ],
 ]">
 {{-- <div class="card">

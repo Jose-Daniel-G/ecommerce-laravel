@@ -112,7 +112,7 @@
                                         {{-- Color  --}}
                                         <div
                                             class="border border-gray-300 rounded-md h-[42px] flex item-center justify-between px-3">
-                                            {{ $newOption->featuress[$index]['value'] ?: 'Seleccione un color' }}
+                                            {{ $newOption->featuress['value'] ?: 'Seleccione un color' }}
                                             <input wire:model.live="newOption.features.{{ $index }}.value"
                                                 type="color">
                                         </div>

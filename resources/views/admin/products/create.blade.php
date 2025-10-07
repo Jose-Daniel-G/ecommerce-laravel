@@ -4,7 +4,7 @@
         'route' => route('admin.dashboard'),
     ],
     [
-        'name' => 'Familias',
+        'name' => 'Productos',
         'route' => route('admin.products.index'),
     ],
     [
