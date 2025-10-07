@@ -23,7 +23,6 @@
                                 @switch($option->type)
                                     @case(1)
                                         {{-- Texto --}}
-
                                         <span
                                             class="bg-gray-100 text-gray-800 text-xs font-medium me-2 pl-2.5 pr-1.5 py-0.5 rounded-sm dark:bg-gray-700 dark:text-gray-300">{{ $feature->description }}
                                             <button class=" ml-0.5" onclick="confirmDelete({{ $feature->id }},'feature')">

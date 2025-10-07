@@ -3,17 +3,19 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Variant;
+use App\Models\Cover;
 use Illuminate\Http\Request;
 
-class VariantController extends Controller
+class CoverController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $cover = Cover::orderBy('id', 'desc')->paginate(10);
+
+        return view('admin.cover.index', compact('cover'));
     }
 
     /**
@@ -21,7 +23,7 @@ class VariantController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.cover.create');
     }
 
     /**
@@ -35,23 +37,23 @@ class VariantController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Variant $variant)
+    public function show(Cover $cover)
     {
-        //
+        return view('admin.cover.show');
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Variant $variant)
+    public function edit(Cover $cover)
     {
-        //
+        return view('admin.cover.edit', compact('cover'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Variant $variant)
+    public function update(Request $request, Cover $cover)
     {
         //
     }
@@ -59,7 +61,7 @@ class VariantController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Variant $variant)
+    public function destroy(Cover $cover)
     {
         //
     }

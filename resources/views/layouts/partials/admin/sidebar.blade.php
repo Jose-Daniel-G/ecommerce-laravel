@@ -7,6 +7,12 @@
             'active' => request()->routeIs('admin.dashboard'),
         ],
         [
+            'icon' => 'fa-solid fa-gue',
+            'name' => 'Opciones',
+            'route' => route('admin.options.index'),
+            'active' => request()->routeIs('admin.options.*'),
+        ],
+        [
             'icon' => 'fa-solid fa-box-open',
             'name' => 'Familias de productos',
             'route' => route('admin.families.index'),
@@ -31,10 +37,10 @@
             'active' => request()->routeIs('admin.products.*'),
         ],
         [
-            'icon' => 'fa-solid fa-cog',
-            'name' => 'Opciones',
-            'route' => route('admin.options.index'),
-            'active' => request()->routeIs('admin.options.*'),
+            'icon' => 'fa-solid fa-images',
+            'name' => 'Portadas',
+            'route' => route('admin.covers.index'),
+            'active' => request()->routeIs('admin.covers.*'),
         ],
         // [
         //     'icon' => 'fa-solid fa-box',

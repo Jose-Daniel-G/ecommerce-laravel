@@ -1,6 +1,8 @@
 Family
  └── Category
        └── Subcategory
+27->37->48
+
 Based on the course structure you provided, the total number of chapters is 68. Since you've already completed up to chapter 27, you have 41 chapters left (68−27=41).
 
 The time it will take you to finish the course largely depends on your study pace and consistency in the remaining 41 chapters.
@@ -21,40 +23,48 @@ Practice: The best way to learn to program is to practice. Make sure you're not 
 
 You're already doing great by reaching chapter 27! Keep up the momentum.
 
-Introducción
+## 🚀 Módulos del Proyecto
 
-Diseño de la bbdd
+### ✅ Completados
 
-Administrador
+- [x] Introducción  
+- [x] Diseño de la BBDD  
+- [x] Administrador  
+- [x] CRUD Familias  
+- [x] SweetAlert 2  
+- [x] CRUD de Categorías  
+- [x] CRUD de Subcategorías  
+- [x] CRUD de Productos  
 
-CRUD familias
+<details>
+  <summary>🧱 Variantes (6 pasos)</summary>
 
-Sweetalert 2
+  - [x] Crear variantes 1  
+  - [ ] Crear variantes 2  
+  - [ ] Recursividad  
+  - [ ] Generar variantes  
+  - [ ] Mostrar variantes  
+  - [ ] Editar variantes  
 
-Crud de categorías
+</details>
 
-CRUD de subcategorías
+- [x] Cabecera  
 
-Crud de productos
+---
 
-Variantes
+### 🚧 En desarrollo
 
-Cabecera
+- [ ] Portadas  
+- [ ] Filtros  
+- [ ] Carrito de Compras  
 
-Portadas
+---
 
-Filtros
+### ⏳ Pendientes
 
-Carrito de compras
-
-Direcciones
-
-Pasarela de pago
-
-Administrar ordenes
-
-Solucionar errores
-
-Stock
-
-Laravel Permission
+- [ ] Direcciones  
+- [ ] Pasarela de Pago  
+- [ ] Administrar Órdenes  
+- [ ] Solucionar Errores  
+- [ ] Stock  
+- [ ] Laravel Permission
