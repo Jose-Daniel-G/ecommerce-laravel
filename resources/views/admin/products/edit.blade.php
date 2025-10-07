@@ -12,7 +12,9 @@
     ],
 ]">
     
-        @livewire('admin.products.product-edit',compact('product'))
+@livewire('admin.products.product-edit', ['product' => $product], key('product-edit-' . $product->id))
+@livewire('admin.products.product-variants', ['product' => $product], key('variants-' . $product->id))
+
 
     @push('js')
         <script>

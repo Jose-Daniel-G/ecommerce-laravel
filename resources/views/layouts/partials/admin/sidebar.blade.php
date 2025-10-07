@@ -36,18 +36,18 @@
             'route' => route('admin.options.index'),
             'active' => request()->routeIs('admin.options.*'),
         ],
-        [
-            'icon' => 'fa-solid fa-box',
-            'name' => 'Variantes',
-            'route' => route('admin.variants.index'),
-            'active' => request()->routeIs('admin.variants.*'),
-        ],
-        [
-            'icon' => 'fa-solid fa-box',
-            'name' => 'Portadas',
-            'route' => route('admin.variants.index'),
-            'active' => request()->routeIs('admin.variants.*'),
-        ],
+        // [
+        //     'icon' => 'fa-solid fa-box',
+        //     'name' => 'Variantes',
+        //     'route' => route('admin.variants.index'),
+        //     'active' => request()->routeIs('admin.variants.*'),
+        // ],
+        // [
+        //     'icon' => 'fa-solid fa-box',
+        //     'name' => 'Portadas',
+        //     'route' => route('admin.variants.index'),
+        //     'active' => request()->routeIs('admin.variants.*'),
+        // ],
     ];
 @endphp
 

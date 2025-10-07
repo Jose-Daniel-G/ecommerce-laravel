@@ -1,7 +1,8 @@
 @props(['breadcrumbs' => []])
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" 
+      x-data="{ darkMode: false }" 
+      :class="{ 'dark': darkMode }">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,7 +23,6 @@
 </head>
 
 <body class="font-sans antialiased" x-data="{ sidebarOpen: false }">
-
     @include('layouts.partials.admin.navigation')
     @include('layouts.partials.admin.sidebar')
 
@@ -48,12 +48,24 @@
     @stack('js')
     @if (session('swal'))
         <script>
-            Swal.fire( @json(session('swal')) );
+            Swal.fire(@json(session('swal')));
         </script>
     @endif
-        <script>
-            Livewire.on('swal',data=>{Swal.fire(data[0]);});
-        </script>
+    <script>
+        Livewire.on('swal', data => {
+            Swal.fire(data[0]);
+        });
+        // 👇 Si más adelante quieres guardar preferencia del modo oscuro
+        document.addEventListener('alpine:init', () => {
+            Alpine.store('darkMode', {
+                on: localStorage.getItem('theme') === 'dark',
+                toggle() {
+                    this.on = !this.on;
+                    localStorage.setItem('theme', this.on ? 'dark' : 'light');
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -3,7 +3,7 @@
 }
 
 .btn-blue {
-    @apply bg-blue-500 text-white bg-blue-700;
+    @apply bg-blue-600 text-white bg-blue-700;
 }
 .btn-red {
     @apply bg-blue-500 text-white bg-red-700;
@@ -16,5 +16,8 @@
 }
 .btn-yellow {
     @apply bg-blue-500 text-white bg-yellow-700;
+}
+.btn-purple {
+    @apply bg-purple-500 text-white bg-yellow-700;
 }
  

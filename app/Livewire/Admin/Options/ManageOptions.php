@@ -3,7 +3,9 @@
 namespace App\Livewire\Admin\Options;
 
 use App\Livewire\Forms\Admin\Options\NewOptionForm;
+use App\Models\Feature;
 use App\Models\Option;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class ManageOptions extends Component
@@ -14,12 +16,26 @@ class ManageOptions extends Component
     public function mount()
     {
         $this->options = Option::with('features')->get();
-        
+    }
+    #[On('featureAdded')]
+    public function updateOptionList()
+    {
+        $this->options = Option::with('features')->get();
     }
     public function addFeature()
     {
         $this->newOption->addFeature();
     }
+    public function deleteFeature(Feature $feature)
+    {
+        $feature->delete();
+        $this->options = Option::with('features')->get();
+    } 
+    public function deleteOption(Option $option)
+    {
+        $option->delete();
+        $this->options = Option::with('features')->get();
+    } 
     public function removeFeature($index)
     {
         $this->newOption->removeFeature($index);
@@ -29,7 +45,7 @@ class ManageOptions extends Component
         $this->newOption->save();
         $this->options = Option::with('features')->get();
         $this->reset('openModal');
-        $this->dispatch('swal',['icon'=>'success','title'=>'Bien echo!', 'text'=>'la opcion se agrego correctamente']);
+        $this->dispatch('swal', ['icon' => 'success', 'title' => 'Bien echo!', 'text' => 'la opcion se agrego correctamente']);
     }
     public function render()
     {

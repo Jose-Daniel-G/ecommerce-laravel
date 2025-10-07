@@ -9,34 +9,59 @@
         <div class="p-6">
             <div class="space-y-6">
                 @foreach ($options as $option)
-                    <div class="p-6 rounded-lg border border-gray-200 relative">
-                        <div class="absolute bg-white -top-3 px-4"><span>{{ $option->name }}</span></div>
-                    </div>
-                    {{-- Valores  --}}
-                    <div class="flex flex-wrap">
-                        @foreach ($option->features as $feature)
-                            @switch($option->type)
-                                @case(1)
-                                    {{-- Texto --}}
-                                    <span
-                                        class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-gray-700 dark:text-gray-300">{{ $feature->description }}</span>
-                                @break
+                    <div class="p-6 rounded-lg border border-gray-200 relative" wire:key="option-{{ $option->id }}">
+                        <div class="absolute -top-3 px-4 bg-white">
+                            <button class="mr-1" onclick="confirmDelete({{ $option->id }},'option')"><i
+                                    class="fa-solid fa-trash-can text-red-500 hover:text-red-700"></i></button>
+                            <span>
+                                {{ $option->name }}</span>
+                        </div>
 
-                                @case(2)
-                                    {{-- Color --}}
-                                    <span class="inline-block h-6 w-6 shadow-lg rounded-full border-2 border-gray-300 mr-4"
-                                        style="background-color:{{ $feature->value }}"></span>
-                                @break
+                        {{-- Valores  --}}
+                        <div class="flex flex-wrap mb-4">
+                            @foreach ($option->features as $feature)
+                                @switch($option->type)
+                                    @case(1)
+                                        {{-- Texto --}}
 
-                                @case(3)
-                                    {{-- Sexo --}}
-                                    <span
-                                        class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-gray-700 dark:text-gray-300">{{ $feature->description }}</span>
-                                @break
+                                        <span
+                                            class="bg-gray-100 text-gray-800 text-xs font-medium me-2 pl-2.5 pr-1.5 py-0.5 rounded-sm dark:bg-gray-700 dark:text-gray-300">{{ $feature->description }}
+                                            <button class=" ml-0.5" onclick="confirmDelete({{ $feature->id }},'feature')">
+                                                <li class="fa-solid fa-xmark hover:text-red-500"></li>
+                                            </button>
+                                        </span>
+                                    @break
 
-                                @default
-                            @endswitch
-                        @endforeach
+                                    @case(2)
+                                        {{-- Color --}}
+                                        <div class="relative">
+                                            <span
+                                                class="inline-block h-6 w-6 shadow-lg rounded-full border-2 border-gray-300 mr-2"
+                                                style="background-color:{{ $feature->value }}">
+                                            </span>
+                                            <button onclick="confirmDelete({{ $feature->id }})"
+                                                class="absolute z-10 left-3 -top-2 rounded-full bg-red-500 hover:bg-red-700 h-4 w-4 flex justify-center items-center">
+                                                <li class="fa-solid fa-xmark text-white text-xs"></li>
+                                            </button>
+                                        </div>
+                                    @break
+
+                                    @case(3)
+                                        {{-- Sexo --}}
+                                        <span
+                                            class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-gray-700 dark:text-gray-300">{{ $feature->description }}
+                                            <button>
+                                                <li class="fa-solid fa-xmark hover:text-red-500"></li>
+                                            </button> </span>
+                                    @break
+
+                                    @default
+                                @endswitch
+                            @endforeach
+                        </div>
+                        <div>
+                            @livewire('admin.options.add-new-feature', ['option' => $option], key('add-new-feature-' . $option->id))
+                        </div>
                     </div>
                 @endforeach
             </div>
@@ -79,18 +104,19 @@
 
                                 @switch($newOption->type)
                                     @case(1)
-                                    {{-- Texto  --}}
+                                        {{-- Texto  --}}
                                         <x-input wire:model="newOption.features.{{ $index }}.value" class="w-full"
                                             placeholder="Ingrese el valor de la opcion"></x-input>
                                     @break
-                                       
+
                                     @case(2)
-                                    {{-- Color  --}}
-                                    <div class="border border-gray-300 rounded-md h-[42px] flex item-center justify-between px-3">
-                                        {{$newOption['features'][$index]['value']?: 'Seleccione un color'}}
-                                        <input wire:model.live="newOption.features.{{ $index }}.value" type="color" >
-                                    </div>
-                                     
+                                        {{-- Color  --}}
+                                        <div
+                                            class="border border-gray-300 rounded-md h-[42px] flex item-center justify-between px-3">
+                                            {{ $newOption->featuress[$index]['value'] ?: 'Seleccione un color' }}
+                                            <input wire:model.live="newOption.features.{{ $index }}.value"
+                                                type="color">
+                                        </div>
                                     @break
 
                                     @default
@@ -113,4 +139,41 @@
             <button wire:click="addOption" class="btn btn-blue">Agregar</button>
         </x-slot>
     </x-dialog-modal>
+    @push('js')
+        <script>
+            function confirmDelete(id,type) {
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: "btn btn-success",
+                        cancelButton: "btn btn-danger"
+                    },
+                    buttonsStyling: false
+                });
+                swalWithBootstrapButtons.fire({
+                    title: "Estas seguro?",
+                    text: "No podras revertir esto!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Si, borralo!",
+                    cancelButtonText: "Cancelar",
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        switch (type) {
+                            case 'feature':
+                                 @this.call('deleteFeature', id);
+                                break;
+                            case 'option':
+                                 @this.call('deleteOption', id);
+                                break;
+                        
+                            default:
+                                break;
+                        }
+                       
+                    }
+                });
+            }
+        </script>
+    @endpush
 </div>
