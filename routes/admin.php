@@ -11,6 +11,8 @@ use App\Http\Controllers\Admin\ShipmentController;
 use App\Http\Controllers\Admin\SubcategoryController;
 use App\Http\Controllers\Admin\VariantController;
 use App\Livewire\Admin\UserComponent;
+use App\Models\Product;
+use App\Models\Variant;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -22,6 +24,14 @@ Route::resource('categories', CategoryController::class);
 Route::resource('options', OptionController::class);
 Route::resource('subcategories', SubcategoryController::class);
 Route::resource('products', ProductController::class);
+Route::get('products/{product}/variants/{variant}', [ProductController::class, 'variants'])
+    ->name('products.variants')
+    ->scopeBindings();
+Route::update('products/{product}/variants/{variant}', [ProductController::class, 'variantsUpdate'])
+    ->name('products.variantsUpdate')
+    ->scopeBindings();
+
+
 Route::resource('drivers', DriverController::class);
 Route::resource('orders', ShipmentController::class);
 Route::resource('shipments', ShipmentController::class);
@@ -36,7 +46,6 @@ Route::resource('covers', CoverController::class);
 
  
 // Route::get('/', ShowProducts::class)->name('admin.index');
-// Route::get('products/create', CreateProduct::class)->name('admin.products.create');
 // Route::get('products/{product}/edit', EditProduct::class)->name('admin.products.edit');
 // Route::post('products/{product}/files', [ProductController::class, 'files'])->name('admin.products.files');
 // Route::get('orders', [OrderController::class, 'index'])->name('admin.orders.index');

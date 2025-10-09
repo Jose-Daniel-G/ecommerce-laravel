@@ -20,19 +20,26 @@ Route::middleware([
 });
 
 
-Route::get('prueba', function(){$product=Product::find(150);
+
+Route::get('prueba',function(){
+    $product = Product::find(150);
     $features =$product->options->pluck('pivot.features');
-    $combinaciones = generarCombinaciones($features);
-    $product->variants()->delete();
+    $combinaciones =generarCombinaciones($features);
     foreach ($combinaciones as $combinacion) {
-        $variant = Variant::create(['product_id'=>$product->id]);
+        $variant = Variant::create(['product_id'=>150]);
         $variant->features()->attach($combinacion);
     }
-    return "Variantes creadas";
+    return 'Variantes creadas';
 });
 
-function generarCombinaciones($arrays,$indice=0,$combinacion=[]){
-    if ($indice == count($arrays)) {
-        
+function generarCombinaciones($arrays,$indice=0,$combinacion = []){
+    if ($indice==count($arrays)) {
+        return [$combinacion];
     }
+    $resultado = [];
+    foreach ($arrays[$indice] as $item) {
+        $combinacionTemporal[]=$item['id'];
+        $resultado = array_merge($resultado, generarCombinaciones($arrays,$indice+1,$combinacionTemporal));
+    }
+    return $resultado;
 }

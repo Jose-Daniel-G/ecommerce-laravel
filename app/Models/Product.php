@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
-    protected $fillable = ['sku','name', 'description', 'image_path', 'price', 'subcategory_id'];
+    protected $fillable = ['sku','name', 'description', 'image_path', 'price', 'stock','subcategory_id'];
 
     public function subcategory()
     { //relacion muchos a muchos inversa

@@ -55,7 +55,8 @@
                                                 {{-- Sexo --}}
                                                 <span
                                                     class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-gray-700 dark:text-gray-300">{{ $feature['description'] }}
-                                                    <button  onclick="confirmDeleteFeature({{ $option->id }}, {{ $feature['id'] }})">
+                                                    <button
+                                                        onclick="confirmDeleteFeature({{ $option->id }}, {{ $feature['id'] }})">
                                                         <li class="fa-solid fa-xmark hover:text-red-500"></li>
                                                     </button> </span>
                                             @break
@@ -85,6 +86,32 @@
 
         </div>
     </section>
+    @if ($product->variants->count())
+        <section class="rounded-lg border border-gray-100 bg-white shadow-lg">
+            <header class="border-b px-6 py-2 border-gray-200">
+                <div class="flex justify-between">
+                    <h1 class="text-lg font-semibold text-gray-700">Variantes</h1>
+                </div>
+            </header>
+            <div class="p-6">
+                <ul class="divide-y -my-4">
+                    @foreach ($product->variants as $item)
+                        <li class="py-4 flex item-center"><img src="{{ $item->image }}"
+                                class="w-12 h-12 object-cover object-center">
+                            <p class="divide-x">
+                                @foreach ($item->features as $feature)
+                                    <span class="px-3">{{ $feature->description }}</span>
+                                @endforeach
+                            </p>
+                            <a href="{{ route('admin.products.variants', [$product, $item]) }}"
+                                class="ml-auto btn btn-blue">Editar</a>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        </section>
+    @endif
+
     <x-dialog-modal wire:model="openModal">
         <x-slot name="title">Agregar nueva opcion</x-slot>
         <x-slot name="content">

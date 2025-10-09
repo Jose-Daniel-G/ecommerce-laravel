@@ -13,7 +13,7 @@
         <x-validation-errors class="mb-4"></x-validation-errors>
         <div class="card">
             <div class="mb-4">
-                <x-label class="mb-1">Codigo</x-label>
+                <x-label class="mb-1">Codigo (SKU)</x-label>
                 <x-input wire:model="productEdit.sku" class="w-full"  
                     placeholder="Por favor ingrese el codigo del producto"></x-input>
             </div>
@@ -64,8 +64,16 @@
             <div class="mb-4">
                 <x-label class="mb-1">Precio</x-label>
                 <x-input wire:model="productEdit.price" class="w-full"
-                    placeholder="Por favor ingrese el precion del producto" type="number" step="0.01"></x-input>
+                    placeholder="Por favor ingrese el precio del producto" type="number" step="0.01"></x-input>
             </div>
+            @empty($product->variants->count()>0)
+            <div class="mb-4">
+                <x-label class="mb-1">Stock</x-label>
+                <x-input wire:model="productEdit.stock" class="w-full"
+                    placeholder="Por favor ingrese el stock del producto" type="number" step="0.01"></x-input>
+            </div>                
+            @endempty
+
             <div class="flex justify-end">
             <x-danger-button type="button" onclick="confirmDelete()">Eliminar</x-danger-button>
                 <x-button>Actualizar</x-button>
