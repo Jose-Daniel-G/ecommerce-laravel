@@ -54,7 +54,7 @@ class ProductCreate extends Component
     }
     public function store()
     {
-       $this->validate(['image' => 'required|image|max:1024','product.sku' => 'required|unique:products,sku', 'product.name' => 'required|max:255', 'product.description' => 'nullable', 'product.price' => 'required|numeric|min:0', 'product.subcategory_id' => 'required|exists:subcategories,id']);
+       $this->validate(['image' => 'required|image|max:1170','product.sku' => 'required|unique:products,sku', 'product.name' => 'required|max:255', 'product.description' => 'nullable', 'product.price' => 'required|numeric|min:0', 'product.subcategory_id' => 'required|exists:subcategories,id']);
        $this->product['image_path'] = $this->image->store('products');
        $product = Product::create($this->product);
         session()->flash('swal',['icon'=>'success', 'title'=>'!Bien echo', 'text'=>'Producto creado correctamente']);

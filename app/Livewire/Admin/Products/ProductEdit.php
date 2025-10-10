@@ -61,7 +61,11 @@ class ProductEdit extends Component
     }
     public function store()
     {
-        $this->validate(['image' => 'nullable|image|max:1024', 'productEdit.sku' => 'required|unique:products,sku,'.$this->product->id, 'productEdit.name' => 'required|max:255', 'productEdit.description' => 'nullable', 'productEdit.price' => 'required|numeric|min:0', 'productEdit.stock' => 'required|numeric|min:0', 'productEdit.subcategory_id' => 'required|exists:subcategories,id']);
+        $this->validate(['image' => 'nullable|image|max:1170', 
+        'productEdit.sku' => 'required|unique:products,sku,'.$this->product->id, 
+        'productEdit.name' => 'required|max:255', 'productEdit.description' => 'nullable', 
+        'productEdit.price' => 'required|numeric|min:0', 'productEdit.stock' => 'required|numeric|min:0', 
+        'productEdit.subcategory_id' => 'required|exists:subcategories,id']);
         if ($this->image) {
             Storage::delete($this->productEdit['image_path']);
             $this->productEdit['image_path'] = $this->image->store('products', 'public');

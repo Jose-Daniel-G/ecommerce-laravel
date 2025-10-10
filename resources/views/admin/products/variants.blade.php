@@ -27,25 +27,27 @@
                     onchange="previewImage(event, '#imgPreview')">
             </label>
         </div>
-<form action="{{route('admin.products.variantsUpdate',[$producto,$variant])}}" method="POST">
-    @csrf 
-    @method('PUT')
+        <form action="{{ route('admin.products.variantsUpdate', [$product, $variant]) }}" method="POST"
+            enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
+            <x-validation-errors class="mb-4"></x-validation-errors>
             <div class="card">
-            <div class="mb-4">
-                <x-label class="mb-1">Codigo (SKU)</x-label>
-                <x-input name="sku" value="{{old('sku',$variant->sku)}}" class="w-full"
-                    placeholder="Por favor ingrese el codigo (sku) del producto"></x-input>
+                <div class="mb-4">
+                    <x-label class="mb-1">Codigo (SKU)</x-label>
+                    <x-input name="sku" value="{{ old('sku', $variant->sku) }}" class="w-full"
+                        placeholder="Por favor ingrese el codigo (sku) del producto"></x-input>
+                </div>
+                <div class="mb-4">
+                    <x-label class="mb-1">Stock</x-label>
+                    <x-input name="stock" value="{{ old('stock', $variant->stock) }}" class="w-full"
+                        placeholder="Por favor ingrese el stok "></x-input>
+                </div>
+                <div class="flex justify-end">
+                    <x-button>Atualizar</x-button>
+                </div>
             </div>
-            <div class="mb-4">
-                <x-label class="mb-1">Codigo (SKU)</x-label>
-                <x-input name="stock" value="{{old('stok',$variant->stok)}}" class="w-full"
-                    placeholder="Por favor ingrese el stok "></x-input>
-            </div>
-            <div class="flex justify-end">
-                <x-button>Atualizar</x-button>
-            </div>
-        </div>
-</form>
+        </form>
     </div>
     @push('js')
         <script>

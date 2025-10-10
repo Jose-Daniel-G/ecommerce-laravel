@@ -87,7 +87,7 @@
         </div>
     </section>
     @if ($product->variants->count())
-        <section class="rounded-lg border border-gray-100 bg-white shadow-lg">
+        <section class="rounded-lg border border-gray-100 bg-white shadow-lg mb-12">
             <header class="border-b px-6 py-2 border-gray-200">
                 <div class="flex justify-between">
                     <h1 class="text-lg font-semibold text-gray-700">Variantes</h1>

@@ -27,7 +27,7 @@ Route::resource('products', ProductController::class);
 Route::get('products/{product}/variants/{variant}', [ProductController::class, 'variants'])
     ->name('products.variants')
     ->scopeBindings();
-Route::update('products/{product}/variants/{variant}', [ProductController::class, 'variantsUpdate'])
+Route::put('products/{product}/variants/{variant}', [ProductController::class, 'variantsUpdate'])
     ->name('products.variantsUpdate')
     ->scopeBindings();
 
@@ -35,16 +35,13 @@ Route::update('products/{product}/variants/{variant}', [ProductController::class
 Route::resource('drivers', DriverController::class);
 Route::resource('orders', ShipmentController::class);
 Route::resource('shipments', ShipmentController::class);
+Route::resource('covers', CoverController::class);
 
 // Route::resource('products/{product}/variants/{variant}', [ProductController::class,'index'])
 //         ->name('products.variants')->scopeBindings();
 // Route::resource('products/{product}/variants/{variant}', [ProductController::class,'index'])
 //         ->name('products.variantsUpdate')->scopeBindings();
 
-
-Route::resource('covers', CoverController::class);
-
- 
 // Route::get('/', ShowProducts::class)->name('admin.index');
 // Route::get('products/{product}/edit', EditProduct::class)->name('admin.products.edit');
 // Route::post('products/{product}/files', [ProductController::class, 'files'])->name('admin.products.files');

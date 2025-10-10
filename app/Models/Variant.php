@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 class Variant extends Model
 {
     use HasFactory;
-    protected $fillable = ["sku","image_path","product_id"];
+    protected $fillable = ["sku","stock","image_path","product_id"];
 
     protected function image():Attribute
     { return Attribute::make(get: fn()=>$this->image_path ? Storage::url($this->image_path): asset('img/n-image.png')) ;

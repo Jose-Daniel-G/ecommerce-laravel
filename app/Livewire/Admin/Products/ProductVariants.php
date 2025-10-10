@@ -75,11 +75,13 @@ class ProductVariants extends Component
             })
         ]);
         $this->product = $this->product->fresh();
+        $this->generarVariantes();
     }
     public function deleteOption($option_id)
     {
         $this->product->options()->detach($option_id);
         $this->product = $this->product->fresh();
+        $this->generarVariantes();
     }
     public function save()
     {
@@ -95,19 +97,18 @@ class ProductVariants extends Component
 
         $this->product->options()->attach($this->variant['option_id'], ['features' => $this->variant['features']]);
         $this->reset(['variant', 'openModal']);
+        $this->generarVariantes();
     }
     public function generarVariantes()
     {
         $features = $this->product->options->pluck('pivot.features');
-        $combinaciones = $this->generarCombinaciones($features);
+        $combinaciones = $this->generarCombinaciones($features->toArray());
         $this->product->variants()->delete();
         foreach ($combinaciones as $combinacion) {
             $variant = Variant::create(['product_id' => $this->product->id]);
             $variant->features()->attach($combinacion);
         }
-                $this->dispatch('swal', ['icon' => 'success', 'title' => 'Bien echo!', 'text' => 'la opcion se agrego correctamente']);
         $this->dispatch('variant-generate');
-
     }
     public function generarCombinaciones(array $arrays, int $indice = 0, array $combinacion = []): array
     {
@@ -117,15 +118,10 @@ class ProductVariants extends Component
 
         $resultado = [];
         foreach ($arrays[$indice] as $item) {
-            // Creamos una copia de la combinación parcial
-            $combinacionTemporal = $combinacion;
-            // Añadimos el ID del elemento actual a la combinación temporal. 
-            $combinacionTemporal[] = $item['id'];
-            // 3. Llamada Recursiva: Avanzamos al siguiente array (índice + 1) 
-            $resultado = array_merge($resultado, $this->generarCombinaciones(
-                $arrays,
-                $indice + 1,
-                $combinacionTemporal
+            $combinacionTemporal = $combinacion;                             // Creamos una copia de la combinación parcial
+            $combinacionTemporal[] = $item['id'];                            // Añadimos el ID del elemento actual a la combinación temporal. 
+            $resultado = array_merge($resultado, $this->generarCombinaciones(// 3. Llamada Recursiva: Avanzamos al siguiente array (índice + 1) 
+                $arrays, $indice + 1, $combinacionTemporal
             ));
         }
         // 4. Devolvemos el array final de resultados.
