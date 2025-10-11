@@ -54,8 +54,8 @@
             </div>
         </x-container>
     </header>
-    <div x-show="open" x-on:click="open = false" style="display: none" class="fixed top-0 left-0 inset-0 bg-black bg-opacity-25 z-10"></div>
-    <div style="display: none" class="fixed top-0 left-0 z-20">
+    <div style="display: none" x-show="open" x-on:click="open = false" class="fixed top-0 left-0 inset-0 bg-black bg-opacity-25 z-10"></div>
+    <div style="display: none" x-show="open" class="fixed top-0 left-0 z-20">
         <div class="flex">
             <div class="w-screen md:w-80 h-screen bg-white">
                 <div class="px-4 py-3 bg-blue-600 text-white font-semibold">
@@ -68,7 +68,7 @@
                     <ul>
                         @foreach ($families as $family)
                             <li wire:mouseover="$set('family_id',{{ $family->id }})">
-                                <a href=""
+                                <a href="{{route('families.show',$family)}}"
                                     class="flex items-center justify-between px-4 py-4 text-gray-700 hover:bg-blue-200">{{ $family->name }}
                                     <i class="fa-solid fa-angle-right"></i>
                                 </a>
@@ -76,16 +76,17 @@
                         @endforeach
                     </ul>
                 </div>
+                </div>
                 <div class="w-80 xl:w-[57rem] pt-[52px] hidden md:block">
                     <div class="bg-white h-[calc(100vh-52)] overflow-auto px-6 py-8">
                         <div class="mb-8 flex justify-between items-center">
                             <p class="border-b-[3px] border-lime-400 uppercase textxl font-semibold pb-1">{{$this->familyName}}</p>
-                            <a href="" class="btn btn-blue"></a>
+                            <a href="{{route('families.show',$family_id)}}" class="btn btn-blue">Ver todo</a>
                         </div>
                         <ul class="grid grid-cols-1 xl:grid-cols-3">
                             @foreach ($this->categories as $category)
                                 <li>
-                                    <a href="" class="text-purple-600 font-semibold text-lg">
+                                    <a href="" class="text-blue-600 font-semibold text-lg">
                                         {{ $category->name }}
                                     </a>
                                     <ul class="mt-4 space-y-2">
@@ -102,7 +103,7 @@
                         </ul>
                     </div>
                 </div>
-            </div>
+            
         </div>
     </div>
 </div>

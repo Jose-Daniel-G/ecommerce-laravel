@@ -1,8 +1,17 @@
 Family
  └── Category
        └── Subcategory
-27->37->48->57->65
-    10  11  9   8
+27->37->48->57->71
+    10  11  9   14
+
+Option → products
+
+Product → subcategory
+
+Subcategory → category
+
+Category → family
+
 Based on the course structure you provided, the total number of chapters is 68. Since you've already completed up to chapter 27, you have 41 chapters left (68−27=41).
 
 The time it will take you to finish the course largely depends on your study pace and consistency in the remaining 41 chapters.

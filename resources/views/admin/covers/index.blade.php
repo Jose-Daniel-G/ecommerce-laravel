@@ -32,7 +32,7 @@
                     </div>
                     <div>
                         <p class="font-bold text-sm">Fecha Fin</p>
-                        <p>{{ $cover->end_at->format('d/m/y') ? $cover->end_at->format('d/m/y') : '-' }}</p>
+                        <p>{{ $cover->end_at?->format('d/m/y') ?? '-' }}</p>
                     </div>
                     <div>
                         <a href="{{ route('admin.covers.edit', $cover) }}" class="btn btn-blue">Editar</a>
