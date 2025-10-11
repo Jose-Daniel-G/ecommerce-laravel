@@ -18,6 +18,8 @@ class AdminSeeder extends Seeder
         User::factory()->create([
             'name' => 'Administrador',
             'last_name' => 'Admin ',
+            'document_type'=>1,
+            'document_number'=>'123123123',
             'phone' => '9514268',
             'email' => 'admin@email.com',
             'email_verified_at' => now(),
@@ -27,6 +29,8 @@ class AdminSeeder extends Seeder
         User::create([
             'name' => 'Jose Daniel',
             'last_name' => 'Grijalba Osorio',
+            'document_type'=>1,
+            'document_number'=>'123123123',
             'phone' => '9514268',
             'email' => 'jose.jdgo97@gmail.com',
             'email_verified_at' => now(),

@@ -23,13 +23,17 @@ class Filter extends Component
                     }
                 );
             }
-        ])->get();
+        ])->get()->toArray();
     }
 
     public function render()
     {
         $products = Product::whereHas('subcategory.category',function($query){
             $query->where('family_id',$this->family_id);
+        })->when($this->selected_features, function($query){
+            $query->whereHas('variants.features', function($query){
+                $query->whereIn('features.id',$this->selected_features);
+            });
         })->paginate(12);
         return view('livewire.filter',compact('products'));
     }

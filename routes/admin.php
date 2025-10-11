@@ -34,7 +34,6 @@ Route::put('products/{product}/variants/{variant}', [ProductController::class, '
 
 Route::resource('drivers', DriverController::class);
 Route::resource('orders', ShipmentController::class);
-Route::resource('shipments', ShipmentController::class);
 Route::resource('covers', CoverController::class);
 
 // Route::resource('products/{product}/variants/{variant}', [ProductController::class,'index'])

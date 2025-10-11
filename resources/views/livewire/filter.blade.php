@@ -6,15 +6,15 @@
                     @foreach ($options as $option)
                         <li x-data="{ open: true }">
                             <button x-on:click="open =!open"
-                                class="px-4 py-2 bg-gray-200 w-full text-left text-gray-700 flex justify-between items-center">{{ $option->name }}
+                                class="px-4 py-2 bg-gray-200 w-full text-left text-gray-700 flex justify-between items-center">{{ $option['name'] }}
                                 <i class="fa-solid fa-angle-down"
                                     x-bind:class="{ 'fa-angle-down': open, 'fa-angle-up': !open, }"></i>
                             </button>
                             <ul class="mt-2 space-y-2" x-show="open">
-                                @foreach ($option->features as $feature)
+                                @foreach ($option['features'] as $feature)
                                     <li>
-                                        <x-checkbox class="mr-2" />
-                                        <label class="inline-flex items-center">{{ $feature->description }}</label>
+                                        <x-checkbox value="{{$feature['id']}}" wire:model.live="selected_features" class="mr-2" />
+                                        <label class="inline-flex items-center">{{ $feature['description'] }}</label>
                                     </li>
                                 @endforeach
                             </ul>
@@ -51,6 +51,7 @@
             <div class="mt-8">
                 {{$products->links()}}
             </div>
+            {{-- @dump($selected_features) --}}
         </div>
     </x-container>
 </div>

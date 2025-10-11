@@ -1,8 +1,8 @@
 Family
  └── Category
        └── Subcategory
-27->37->48->57->73
-    10  11  9   16
+27->37->48->57->78->?
+    10  11  9   21
 YOU'VE TO MAKE 15 PER DAY
 
 Option → products
@@ -65,7 +65,22 @@ You're already doing great by reaching chapter 27! Keep up the momentum.
 ### 🚧 En desarrollo
 
 - [X] Portadas  
-- [-] Filtros  
+<details>
+  <summary>Filtros (11 pasos)</summary>
+
+  - [x] Mostrar opciones y features por familia  
+  - [x] Mostrar opciones y features por familia II  
+  - [x] Mostrar y ocultar features  
+  - [x] Mostrar productos por familia  
+  - [x] Volver responsivo pagina filtros  
+  - [x] Filtrar productos por features 
+  - [ ] Cambiar el orden en el que se muestran los productos 
+  - [ ] Utilizr el buscador para filtrar 
+  - [ ] Filtrar por categoria
+  - [ ] Filtrar por subcategoria
+  - [ ] Query scope
+
+</details>
 - [ ] Carrito de Compras  
 
 ---

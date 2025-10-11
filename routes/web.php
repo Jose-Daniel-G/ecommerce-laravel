@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ShipmentController;
 use App\Http\Controllers\FamilyController;
 use App\Http\Controllers\WelcomeController;
 use App\Models\Product;
@@ -8,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [WelcomeController::class,'index'])->name('welcome.index');
 Route::get('/families/{family}', [FamilyController::class,'show'])->name('families.show');
+Route::get('shipping', [ShipmentController::class,'index'])->name('shipping.index');
 
 Route::middleware([
     'auth:sanctum',

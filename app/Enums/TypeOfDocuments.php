@@ -1,7 +1,6 @@
+<?php 
 
-<?php
-
-// namespace App\Enums;
+namespace App\Enums;
 
 enum TypeOfDocuments: int
 {

@@ -39,9 +39,9 @@
                 </div>
                 {{-- Document --}}
                 <div>
-                    <x-label for="document" value="Document" />
-                    <x-input id="document" class="block mt-1 w-full" type="text" name="document" :value="old('document')"
-                        required autocomplete="document" />
+                    <x-label for="document_number" value="Document" />
+                    <x-input id="document_number" class="block mt-1 w-full" type="text" name="document_number" :value="old('document_number')"
+                        required autocomplete="document_number" />
                 </div>
                 {{-- Email --}}
                 <div>
