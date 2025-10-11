@@ -3,6 +3,7 @@ Family
        └── Subcategory
 27->37->48->57->71
     10  11  9   14
+YOU'VE TO MAKE 15 PER DAY
 
 Option → products
 
@@ -51,9 +52,9 @@ You're already doing great by reaching chapter 27! Keep up the momentum.
   - [x] Crear variantes 1  
   - [x] Crear variantes 2  
   - [x] Recursividad  
-  - [ ] Generar variantes  
-  - [ ] Mostrar variantes  
-  - [ ] Editar variantes  
+  - [X] Generar variantes  
+  - [X] Mostrar variantes  
+  - [X] Editar variantes  
 
 </details>
 
@@ -63,8 +64,8 @@ You're already doing great by reaching chapter 27! Keep up the momentum.
 
 ### 🚧 En desarrollo
 
-- [ ] Portadas  
-- [ ] Filtros  
+- [X] Portadas  
+- [-] Filtros  
 - [ ] Carrito de Compras  
 
 ---
