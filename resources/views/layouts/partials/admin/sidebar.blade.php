@@ -52,12 +52,6 @@
             'name' => 'Ordenes',
             'route' => route('admin.orders.index'),
             'active' => request()->routeIs('admin.orders.*'),
-        ],
-        [
-            'icon' => 'fa-solid fa-box',
-            'name' => 'Envios',
-            'route' => route('admin.shipments.index'),
-            'active' => request()->routeIs('admin.shipments.*'),
         ], 
 
     ];

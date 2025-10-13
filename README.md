@@ -104,3 +104,5 @@ You're already doing great by reaching chapter 27! Keep up the momentum.
   - [ ] Asignar Rol 
 
 </details>
+
+![Ecommerce tailwind livewire](images/image.png)
