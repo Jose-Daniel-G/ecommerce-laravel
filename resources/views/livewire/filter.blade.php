@@ -28,13 +28,13 @@
             <div class="md:flex items-center">
                 <span class="mr-2">Ordenar por:</span>
                 <hr class="my-4">
-                <x-select>
+                <x-select wire:model.live="orderBy">
                     <option value="1">Relevancia</option>
                     <option value="2">Precio: Mayor a menor</option>
                     <option value="3">Precio: Menor a mayor</option>
                 </x-select>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 lg:grid-cols-4 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 @foreach ($products as $product)
                     <article class="bg-white shadow rounded overflow-hidden">
                         <img src="{{ $product->image }}" class="w-full h-48 object-cover object-center" alt="">
