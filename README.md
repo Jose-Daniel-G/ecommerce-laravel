@@ -1,8 +1,8 @@
 Family
  └── Category
        └── Subcategory
-27->37->48->57->78->?
-    10  11  9   21
+27->37->48->57->78->82->88
+    10  11  9   21  4   6
 YOU'VE TO MAKE 15 PER DAY
 
 Option → products
@@ -74,14 +74,27 @@ You're already doing great by reaching chapter 27! Keep up the momentum.
   - [x] Mostrar productos por familia  
   - [x] Volver responsivo pagina filtros  
   - [x] Filtrar productos por features 
-  - [ ] Cambiar el orden en el que se muestran los productos 
-  - [ ] Utilizr el buscador para filtrar 
-  - [ ] Filtrar por categoria
-  - [ ] Filtrar por subcategoria
-  - [ ] Query scope
+  - [x] Cambiar el orden en el que se muestran los productos 
+  - [x] Utilizr el buscador para filtrar 
+  - [x] Filtrar por categoria
+  - [x] Filtrar por subcategoria
+  - [x] Query scope
 
 </details>
-- [ ] Carrito de Compras  
+<details>
+  <summary> Carrito de Compras (9 pasos)</summary>
+
+  - [x] Mostrare el detalle del producto  
+  - [x] Instalar Laravel Shoppingcart 
+  - [x] Elegir cantidad de Items que se comprara  
+  - [x] Agregar items al carrito  
+  - [ ] Guardar carrito de compras en la bd  
+  - [ ] Mostrar cantidad de items agregados al carrito 
+  - [ ] Mostrar items agregados al carrito de compra
+  - [ ] Mostrar items del carrito de compra 
+  - [ ] Actualizar carrito de compras
+
+</details>
 
 ---
 
@@ -106,3 +119,5 @@ You're already doing great by reaching chapter 27! Keep up the momentum.
 </details>
 
 ![Ecommerce tailwind livewire](images/image.png)
+
+composer require hardevine/shoppingcart

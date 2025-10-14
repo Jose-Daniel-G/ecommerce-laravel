@@ -3,16 +3,19 @@
 use App\Http\Controllers\Admin\ShipmentController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FamilyController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\WelcomeController;
 use App\Models\Product;
 use App\Models\Variant;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [WelcomeController::class,'index'])->name('welcome.index');
 Route::get('/families/{family}', [FamilyController::class,'show'])->name('families.show');
 Route::get('/categories/{category}', [CategoryController::class,'show'])->name('categories.show');
 Route::get('/subcategories/{subcategory}', [SubcategoryController::class,'show'])->name('subcategories.show');
+Route::get('/products/{product}', [ProductController::class,'show'])->name('products.show');
 Route::get('shipping', [ShipmentController::class,'index'])->name('shipping.index');
 
 
@@ -29,24 +32,6 @@ Route::middleware([
 
 
 Route::get('prueba',function(){
-    $product = Product::find(150);
-    $features =$product->options->pluck('pivot.features');
-    $combinaciones =generarCombinaciones($features);
-    foreach ($combinaciones as $combinacion) {
-        $variant = Variant::create(['product_id'=>150]);
-        $variant->features()->attach($combinacion);
-    }
-    return 'Variantes creadas';
+    Cart::instance('shopping');
+    return Cart::content();
 });
-
-function generarCombinaciones($arrays,$indice=0,$combinacion = []){
-    if ($indice==count($arrays)) {
-        return [$combinacion];
-    }
-    $resultado = [];
-    foreach ($arrays[$indice] as $item) {
-        $combinacionTemporal[]=$item['id'];
-        $resultado = array_merge($resultado, generarCombinaciones($arrays,$indice+1,$combinacionTemporal));
-    }
-    return $resultado;
-}

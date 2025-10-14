@@ -9,6 +9,23 @@ class Option extends Model
 {
     use HasFactory;
     protected $fillable = ["name", "type"];
+
+    public function scopeVerifyFamily($query,$family_id){
+        $query->when($family_id, function ($query,$family_id) {
+            $query->whereHas('products.subcategory.category', function ($query) use ($family_id) {
+                $query->where('family_id', $family_id);
+            })->with([
+                'features' => function ($query) use ($family_id) {
+                    $query->whereHas(
+                        'variants.product.subcategory.category',
+                        function ($query) use ($family_id) {
+                            $query->where('family_id', $family_id);
+                        }
+                    );
+                }
+            ]);
+        });
+    }
     public function products()
     { //relacion muchos a muchos
         return $this->belongsToMany(Product::class)

@@ -43,7 +43,7 @@
                                 {{ $product->name }}
                             </h1>
                             <p class="text-gray-600 mb-4">S/{{ $product->price }}</p>
-                            <a href="" class="btn btn-blue block w-full text-center">Ver mas</a>
+                            <a href="{{route('products.show',$product)}}" class="btn btn-blue block w-full text-center">Ver mas</a>
                         </div>
                     </article>
                 @endforeach
