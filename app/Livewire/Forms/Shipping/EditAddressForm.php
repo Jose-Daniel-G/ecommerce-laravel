@@ -3,6 +3,7 @@
 namespace App\Livewire\Forms\Shipping;
 
 use App\Enums\TypeOfDocuments;
+use App\Models\Address;
 use Illuminate\Validation\Rules\Enum;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
@@ -58,5 +59,20 @@ class EditAddressForm extends Form
         $this->receiver = $this->receiver;
         $this->receiver_info = $this->receiver_info;
         $this->default = $this->default;
+    }
+        public function update($id)
+    {
+        $this->validate();
+        $address = Address::find($this->id);
+        $address->update([
+            'name' => $this->name,
+            'description' => $this->description,
+            'district' => $this->district,
+            'reference' => $this->reference,
+            'receiver' => $this->receiver,
+            'receiver_info' => $this->receiver_info,
+            'default' => $this->default,
+        ]);
+        $this->reset();
     }
 }

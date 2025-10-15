@@ -37,6 +37,11 @@ class ShippingAddresses extends Component
         $address = Address::find($id);
         $this->editAddress->edit($address);
     }
+    public function update()
+    {
+        $this->editAddress->update();
+        $this->addresses = Address::where('user_id', auth()->id())->get();
+    }
     public function deleteAddress($id)
     {
         Address::find($id)->delete();
