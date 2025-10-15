@@ -37,7 +37,7 @@
                     <p>Total:</p>
                     <p>${{Cart::subtotal()}}</p>
                 </div>
-                <a href="" class="btn btn-blue block-inline w-full text-center">Continuar compra</a>
+                <a href="{{route('shipping.index')}}" class="btn btn-blue block-inline w-full text-center">Continuar compra</a>
             </div>
         </div>
     </div>

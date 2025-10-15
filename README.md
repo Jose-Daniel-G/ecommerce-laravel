@@ -1,8 +1,8 @@
 Family
  └── Category
        └── Subcategory
-27->37->48->57->78->82->91->93
-    10  11  9   21  4   9   2
+27->37->48->57->78->82->91->94
+    10  11  9   21  4   9   3
 YOU'VE TO MAKE 15 PER DAY
 
 Option → products
@@ -88,11 +88,26 @@ You're already doing great by reaching chapter 27! Keep up the momentum.
   - [x] Instalar Laravel Shoppingcart 
   - [x] Elegir cantidad de Items que se comprara  
   - [x] Agregar items al carrito  
-  - [ ] Guardar carrito de compras en la bd  
-  - [ ] Mostrar cantidad de items agregados al carrito 
-  - [ ] Mostrar items agregados al carrito de compra
-  - [ ] Mostrar items del carrito de compra 
-  - [ ] Actualizar carrito de compras
+  - [x] Guardar carrito de compras en la bd  
+  - [x] Mostrar cantidad de items agregados al carrito 
+  - [x] Mostrar items agregados al carrito de compra
+  - [x] Mostrar items del carrito de compra 
+  - [x] Actualizar carrito de compras
+
+</details>
+<details>
+  <summary> Direcciones (10 pasos)</summary>
+
+  - [x] Agregar nuevos campos en la tabla users  
+  - [x] Crear tabla addresses  
+  - [ ] Formulario para agregar nueva direccion  
+  - [ ] Especificar quien recibira el pedido  
+  - [ ] Crear nueva direccion  
+  - [ ] Mostrar listado de direcciones agregadas  
+  - [ ] Mostrar direccion por defecto
+  - [ ] Editar direccion  
+  - [ ] Eliminar direcciones  
+  - [ ] MOstrar el Resumen del carrito  
 
 </details>
 
@@ -100,7 +115,6 @@ You're already doing great by reaching chapter 27! Keep up the momentum.
 
 ### ⏳ Pendientes
 
-- [ ] Direcciones  
 - [ ] Pasarela de Pago  
 - [ ] Administrar Órdenes  
 - [ ] Solucionar Errores  

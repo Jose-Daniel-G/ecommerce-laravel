@@ -6,7 +6,7 @@ use App\Livewire\Forms\CreateAddressForm;
 use App\Models\Address;
 use Livewire\Component;
 
-class ShippingAddress extends Component
+class ShippingAddresses extends Component
 {
     public $addresses;
     public $newAddress = true;
@@ -14,10 +14,10 @@ class ShippingAddress extends Component
     public function mount()
     {
         $this->addresses=Address::where('user_id',auth()->id())->get();
-        return view('livewire.shipping-address');
+        return view('livewire.shipping-addresses');
     }
     public function render()
     {
-        return view('livewire.shipping-address');
+        return view('livewire.shipping-addresses');
     }
 }
