@@ -7,8 +7,10 @@
                     <input type="file" class="hidden" wire:model="image" accept="image/*">
                 </label>
             </div>
-            <img class="aspect-[16/9] object-cover object-center w-full"
-                src="{{ $image ? $image->temporaryUrl() : $productEdit['image_path'] }}" alt="">
+            {{-- ORIGINAL DEL CURSO --}}
+            {{-- <img class="aspect-[16/9] object-cover object-center w-full" src="{{ $image ? $image->temporaryUrl() : $productEdit['image_path'] }}" alt=""> --}}
+            <img src="{{ $product->image }}" class="w-full h-48 object-cover object-center" alt="">
+
         </figure>
         <x-validation-errors class="mb-4"></x-validation-errors>
         <div class="card">

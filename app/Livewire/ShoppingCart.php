@@ -25,6 +25,25 @@ class ShoppingCart extends Component
         }
         $this->dispatch('cartUpdate', Cart::count());
     }
+    public function remove($rowId)
+    {
+        Cart::instance('shopping');
+
+        Cart::remove($rowId);
+        if (auth()->check()) {
+            Cart::store(auth()->id());
+        }
+        $this->dispatch('cartUpdate', Cart::count());
+    }
+    public function destroy()
+    {
+        Cart::instance('shopping');
+        Cart::destroy();
+        if (auth()->check()) {
+            Cart::store(auth()->id());
+        }
+        $this->dispatch('cartUpdate', Cart::count());
+    }
     public function increase($rowId)
     {
         Cart::instance('shopping');

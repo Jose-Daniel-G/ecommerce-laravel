@@ -14,8 +14,18 @@ class Product extends Model
 
     protected function image(): Attribute
     {
-        return Attribute::make(get: fn() => Storage::url($this->image_path));
+        return Attribute::make(
+            get: fn() => $this->isUrl($this->image_path) ? $this->image_path : Storage::url($this->image_path)
+        );
     }
+    private function isUrl($path): bool
+    {
+        return filter_var($path, FILTER_VALIDATE_URL) !== false;
+    }
+    // protected function image(): Attribute //original
+    // {
+    //     return Attribute::make(get: fn() => Storage::url($this->image_path));
+    // }
     public function scopeVerifyFamily($query, $family_id)
     {
         $query->when($family_id, function ($query, $family_id) {

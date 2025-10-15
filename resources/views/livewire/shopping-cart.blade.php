@@ -3,7 +3,7 @@
         <div class="lg:col-span-5">
             <div class="flex justify-between">
                 <h1 class="text-lg">Carrito de compras {{ Cart::count() }} productos</h1>
-                <button class="font-semibold text-gray-700 underline hover:no-underline hover:text-blue-400">Limpiar
+                <button wire:click="destroy()" class="font-semibold text-gray-700 underline hover:no-underline hover:text-blue-400">Limpiar
                     carro</button>
             </div>
             <div class="card">
@@ -13,7 +13,7 @@
                                 class="w-full lg:w-36 aspect-[16/9] object-cover object-center mr-2" alt="">
                             <div class="w-80">
                                 <p class="text-sm"><a href="{{ route('products.show', $item->id) }}">{{ $item->name }}</a></p>
-                                <button
+                                <button wire:click="remove('{{$item->rowId}}')"
                                     class="bg-red-100 hover:bg-red-200 text-red-800 text-xs font-semibold rounded px-2.5 py-0.5"><i
                                         class="fa-solid fa-xmark"></i> Quitar</button>
                             </div>
@@ -25,7 +25,7 @@
                             </div>
                         </li>
                         @empty
-                        <span class="font-medium">Info alert!</span> No hay Productos en el carrito.
+                        <span class="font-medium font-semibold text-red-800">No!</span> hay Productos en el carrito.
 
                     @endforelse
                 </ul>

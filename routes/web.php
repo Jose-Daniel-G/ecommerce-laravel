@@ -3,12 +3,11 @@
 use App\Http\Controllers\Admin\ShipmentController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\FamilyController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubcategoryController;
-use App\Http\Controllers\WelcomeController;
-use App\Models\Product;
-use App\Models\Variant;
+use App\Http\Controllers\WelcomeController; 
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +18,7 @@ Route::get('/subcategories/{subcategory}', [SubcategoryController::class,'show']
 Route::get('/products/{product}', [ProductController::class,'show'])->name('products.show');
 Route::get('/cart', [CartController::class,'index'])->name('cart.index');
 Route::get('shipping', [ShipmentController::class,'index'])->name('shipping.index');
+Route::get('checkout', [CheckoutController::class,'index'])->name('checkout.index');
 
 
 Route::middleware([

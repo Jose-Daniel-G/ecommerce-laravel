@@ -34,11 +34,12 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             @foreach ($lastProducts as $product)
                 <article class="bg-white shadow rounded overflow-hidden">
-                    <img src="{{ $product->image_path }}" class="w-full h-48 object-cover object-center" alt="">
+                    <img src="{{ $product->image }}" class="w-full h-48 object-cover object-center" alt="">
+
                     <div class="p-4">
                         <h1 class="text-lg font-bold text-gray-700 line-clamp-2 min-h-[56px] mb-2">{{ $product->name }}
                         </h1>
-                        <p class="text-gray-600 mb-4">S/{{ $product->price }}</p>
+                        <p class="text-gray-600 mb-4">$/{{ $product->price }}</p>
                         <a href="{{route('products.show',$product)}}" class="btn btn-blue block w-full text-center">Ver mas</a>
                     </div>
                 </article>
