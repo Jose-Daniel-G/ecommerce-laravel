@@ -4,6 +4,9 @@
 .btn-outline-gray{
     @apply bg-transparent hover:bg-gray-700 text-gray-900 hover:text-white border border-gray-700 hover:border-transparent;
 }
+.btn-outline-blue{
+    @apply bg-transparent hover:bg-blue-700 text-blue-900 hover:text-white border border-blue-700 hover:border-transparent;
+}
 .btn-blue {
     @apply bg-blue-600 text-white bg-blue-700;
 }

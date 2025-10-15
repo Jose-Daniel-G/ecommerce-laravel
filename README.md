@@ -100,12 +100,12 @@ You're already doing great by reaching chapter 27! Keep up the momentum.
 
   - [x] Agregar nuevos campos en la tabla users  
   - [x] Crear tabla addresses  
-  - [ ] Formulario para agregar nueva direccion  
-  - [ ] Especificar quien recibira el pedido  
-  - [ ] Crear nueva direccion  
-  - [ ] Mostrar listado de direcciones agregadas  
-  - [ ] Mostrar direccion por defecto
-  - [ ] Editar direccion  
+  - [x] Formulario para agregar nueva direccion  
+  - [x] Especificar quien recibira el pedido  
+  - [x] Crear nueva direccion  
+  - [x] Mostrar listado de direcciones agregadas  
+  - [x] Mostrar direccion por defecto
+  - [x] Editar direccion  
   - [ ] Eliminar direcciones  
   - [ ] MOstrar el Resumen del carrito  
 

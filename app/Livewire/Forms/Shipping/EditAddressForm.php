@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Livewire\Forms;
+namespace App\Livewire\Forms\Shipping;
 
 use App\Enums\TypeOfDocuments;
-use App\Models\Address;
 use Illuminate\Validation\Rules\Enum;
+use Livewire\Attributes\Validate;
 use Livewire\Form;
 
-class CreateAddressForm extends Form
+class EditAddressForm extends Form
 {
+    public $id;
     public $type = '';
     public $description = '';
     public $district = '';
@@ -16,7 +17,6 @@ class CreateAddressForm extends Form
     public $receiver = '';
     public $receiver_info = [];
     public $default = false;
-
     public function rules()
     {
         return [
@@ -48,30 +48,15 @@ class CreateAddressForm extends Form
             'receiver_info.phone' => 'Telefono',
         ];
     }
-    public function save()
+    public function edit($address)
     {
-        $this->validate();
-        if (auth()->user()->addresses->count() === 0) {
-            $this->default = true;
-        }
-        Address::create([
-            'user_id' => auth()->id(),            
-            'type' => $this->type,
-            'description' => $this->description,
-            'district' => $this->district,
-            'reference' => $this->reference,
-            'receiver' => $this->receiver,
-            'receiver_info' => $this->receiver_info,
-            'default' => $this->default,
-        ]);
-        $this->reset();
-        $this->receiver_info = [
-            'name' => auth()->user()->name,
-            'lastname' => auth()->user()->lastname,
-            'document_type' => auth()->user()->document_type,
-            'document_number' => auth()->user()->document_number,
-            'email' => auth()->user()->email,
-            'phone' => auth()->user()->phone,
-        ];
+        $this->id = $address->id;
+        $this->type = $address->type;
+        $this->description = $this->description;
+        $this->district = $this->district;
+        $this->reference = $this->reference;
+        $this->receiver = $this->receiver;
+        $this->receiver_info = $this->receiver_info;
+        $this->default = $this->default;
     }
 }
