@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ShipmentController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FamilyController;
 use App\Http\Controllers\ProductController;
@@ -16,6 +17,7 @@ Route::get('/families/{family}', [FamilyController::class,'show'])->name('famili
 Route::get('/categories/{category}', [CategoryController::class,'show'])->name('categories.show');
 Route::get('/subcategories/{subcategory}', [SubcategoryController::class,'show'])->name('subcategories.show');
 Route::get('/products/{product}', [ProductController::class,'show'])->name('products.show');
+Route::get('/cart', [CartController::class,'index'])->name('cart.index');
 Route::get('shipping', [ShipmentController::class,'index'])->name('shipping.index');
 
 

@@ -3,7 +3,7 @@
         <card>
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="col-span-1">
-                    <figure><img src="{{ $this->variant->image_path }}" class="aspect-[1/1] w-full object-cover object-center"
+                    <figure><img src="{{ $this->variant->image }}" class="aspect-[1/1] w-full object-cover object-center"
                             alt=""></figure>
                 </div>
                 <div class="col-span-1">
@@ -36,8 +36,8 @@
                                             @switch($option->type)
                                                 @case(1)
                                                     <button
-                                                        class="w-20 h-8 font-semibold uppercase text-sm rounded-lg {{ $selectedFeactures[$option->id] == $feature['id'] ? 'bg-blue-600 text-white' : '' }}"
-                                                        wire:click="$set('selectedFeactures.{{ $option->id }}',{{ $feature['id'] }})">
+                                                        class="w-20 h-8 font-semibold uppercase text-sm rounded-lg {{ $selectedFeatures[$option->id] == $feature['id'] ? 'bg-blue-600 text-white' : '' }}"
+                                                        wire:click="$set('selectedFeatures.{{ $option->id }}',{{ $feature['id'] }})">
                                                         {{ $feature['value'] }}
                                                     </button>
                                                 @break
@@ -46,7 +46,7 @@
                                                     {{-- Color  --}}
                                                     <div class="p-0.5 border-2 rounded-lg flex items-center -mt-1.5 {{$selectedFeatures[$option->id]==$feature['id']?'border-blue-600':'border-transparent'}}">
                                                         <button class="w-20 h-8 rounded-lg border border-gray-200"
-                                                        wire:click="$set('selectedFeactures.{{ $option->id }}',{{ $feature['id'] }})"
+                                                        wire:click="$set('selectedFeatures.{{ $option->id }}',{{ $feature['id'] }})"
                                                             style="background-color:{{ $feature['value'] }}">
                                                         </button>
                                                     </div>
@@ -61,7 +61,7 @@
                             </div>
                         @endforeach
                     </div>
-                    {{-- @dump($selectedFeactures) --}}
+                    {{-- @dump($selectedFeatures) --}}
                     <button class="btn btn-blue w-full mb-6" wire:click="add_to_cart"
                         wire:loading.attr="disabled">Agregar al carrito</button>
                     <div class="text-sm mb-4">{{ $product->description }}</div>

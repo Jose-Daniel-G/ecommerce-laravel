@@ -15,23 +15,23 @@
         'name' => $variant->features->pluck('description')->implode(' | '),
     ],
 ]">
-    <div class="reative mb-6">
-        <figure>
-            <img id="imgPreview" class="aspect-[16/9] w-full object-cover object-center" src="{{ $variant->image }}"
-                alt="">
-        </figure>
-        <div class="absolute top-8 right-8">
-            <label class="flex items-center bg-white px-4 py-2 rounded-lg cursor-pointer"><i
-                    class="fas fa-camera mr-2"></i>Actualizar imagen
-                <input type="file" class="hidden" accept="image/*" name="image"
-                    onchange="previewImage(event, '#imgPreview')">
-            </label>
-        </div>
-        <form action="{{ route('admin.products.variantsUpdate', [$product, $variant]) }}" method="POST"
-            enctype="multipart/form-data">
+    <form action="{{ route('admin.products.variantsUpdate', [$product, $variant]) }}" method="POST"
+        enctype="multipart/form-data">
+        <div class="relative mb-6">
             @csrf
             @method('PUT')
             <x-validation-errors class="mb-4"></x-validation-errors>
+            <figure>
+                <img class="aspect-[16/9] w-full object-cover object-center" src="{{ $variant->image }}" id="imgPreview"
+                    alt="">
+            </figure>
+            <div class="absolute top-8 right-8">
+                <label class="flex items-center bg-white px-4 py-2 rounded-lg cursor-pointer"><i
+                        class="fas fa-camera mr-2"></i>Actualizar imagen
+                    <input name="image" type="file" class="hidden" accept="image/*"
+                        onchange="previewImage(event, '#imgPreview')">
+                </label>
+            </div>
             <div class="card">
                 <div class="mb-4">
                     <x-label class="mb-1">Codigo (SKU)</x-label>
@@ -47,7 +47,7 @@
                     <x-button>Atualizar</x-button>
                 </div>
             </div>
-        </form>
+    </form>
     </div>
     @push('js')
         <script>

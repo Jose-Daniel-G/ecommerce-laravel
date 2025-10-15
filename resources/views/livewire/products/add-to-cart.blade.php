@@ -3,7 +3,7 @@
         <card>
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="col-span-1">
-                    <figure><img src="{{ $product->image_path }}"
+                    <figure><img src="{{ $product->image }}"
                             class="aspect-[1/1] w-full object-cover object-center" alt=""></figure>
                 </div>
                 <div class="col-span-1">

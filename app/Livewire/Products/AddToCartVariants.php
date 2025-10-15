@@ -11,19 +11,19 @@ class AddToCartVariants extends Component
 {
     public $product;
     public $qty = 1;
-    public $selectedFeactures = [];
+    public $selectedFeatures = [];
     public function mount()
     {
         foreach ($this->product->options as $option) {
             $features = collect($option->pivot->features);
-            $this->selectedFeactures[$option->id] = $features->first()['id'];
+            $this->selectedFeatures[$option->id] = $features->first()['id'];
         }
     }
     #[Computed]
     public function variant()
     {
         return $this->product->variants->filter(function ($variant) {
-            return !array_diff($variant->features->pluck('id')->toArray(), $this->selectedFeactures);
+            return !array_diff($variant->features->pluck('id')->toArray(), $this->selectedFeatures);
         })->first();
     }
     public function add_to_cart()
@@ -34,9 +34,13 @@ class AddToCartVariants extends Component
             'name' => $this->product->name,
             'qty' => $this->qty,
             'price' => $this->product->price,
-            'options' => ['image' => $this->variant->image, 'sku' => $this->variant->sku, 'features' => Feature::whereIn('id',$this->selectedFeactures)
-                            ->pluck('description','id')->toArray()]
+            'options' => ['image' => $this->variant->image, 'sku' => $this->variant->sku, 'features' => Feature::whereIn('id', $this->selectedFeatures)
+                ->pluck('description', 'id')->toArray()]
         ]);
+        if (auth()->check()) {
+            Cart::store(auth()->id());
+        }
+        $this->dispatch('cartUpdate', Cart::count());
         $this->dispatch('swal', ['icon' => 'success', 'title' => 'Bien echo!', 'text' => 'El producto se ha anadido al carrito de compras.']);
     }
     public function render()

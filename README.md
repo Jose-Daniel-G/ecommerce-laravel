@@ -1,8 +1,8 @@
 Family
  └── Category
        └── Subcategory
-27->37->48->57->78->82->88
-    10  11  9   21  4   6
+27->37->48->57->78->82->92
+    10  11  9   21  4   10
 YOU'VE TO MAKE 15 PER DAY
 
 Option → products
@@ -121,3 +121,12 @@ You're already doing great by reaching chapter 27! Keep up the momentum.
 ![Ecommerce tailwind livewire](images/image.png)
 
 composer require hardevine/shoppingcart
+php artisan event:generate
+
+CoverController / migration = image_path
+ProductController / migration = image_path
+ProductCreate  = image_path
+ProductEdit  = image_path
+AddToCard  = image
+AddToCardVariants  = image
+Variants  = image_path

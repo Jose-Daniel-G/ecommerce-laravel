@@ -49,7 +49,11 @@
                             @endguest
                         </x-slot>
                     </x-dropdown>
-                    <button class="text-xl md:text-3xl"><i class="fas fa-shopping-cart text-white"></i></button>
+                    <a href="{{route('cart.index')}}" class="relative"><i
+                            class="fas fa-shopping-cart text-white text-xl md:text-3xl "></i>
+                        <span id="cart-count"
+                            class="absolute -top-2 -end-4 inline-flex items-center w-6 h-6 justify-center bg-red-500 rounded-full text-xs font-bold text-white">{{Cart::instance('shopping')->count()}}</span>
+                    </a>
 
                 </div>
             </div>
@@ -93,13 +97,15 @@
                     <ul class="grid grid-cols-1 xl:grid-cols-3">
                         @foreach ($this->categories as $category)
                             <li>
-                                <a href="{{route('categories.show',$category)}}" class="text-blue-600 font-semibold text-lg">
+                                <a href="{{ route('categories.show', $category) }}"
+                                    class="text-blue-600 font-semibold text-lg">
                                     {{ $category->name }}
                                 </a>
                                 <ul class="mt-4 space-y-2">
                                     @foreach ($category->subcategories as $subcategory)
                                         <li>
-                                            <a href="{{route('subcategories.show',$subcategory)}}" class="text-sm text-gray-700 hover:text-blue-600">
+                                            <a href="{{ route('subcategories.show', $subcategory) }}"
+                                                class="text-sm text-gray-700 hover:text-blue-600">
                                                 {{ $subcategory->name }}
                                             </a>
                                         </li>
@@ -114,8 +120,13 @@
     </div>
     @push('js')
         <script>
+            Livewire.on('cartUpdate',(count)=>{
+                document.getElementById('cart-count').innerText = count;
+            })
             function search(value) {
-                 Livewire.dispatch('search',{ search:value}); 
+                Livewire.dispatch('search', {
+                    search: value
+                });
             }
         </script>
     @endpush

@@ -47,7 +47,7 @@ class ProductController extends Controller
         return view('admin.products.variants', compact('product', "variant"));
     }
     public function variantsUpdate(Request $request, Product $product, Variant $variant)
-    {
+    {   
         $data = $request->validate(['image' => 'nullable|image|max:1170', 'sku' => 'required', 'stock' => 'required|numeric|min:0']);
         if ($request->image) {
             if ($variant->image_path) {

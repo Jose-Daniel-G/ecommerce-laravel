@@ -19,7 +19,11 @@ class AddToCart extends Component
             'price' => $this->product->price,
             'options' => ['image' => $this->product->image, 'sku' => $this->product->sku, 'features' => []]
         ]);
-        $this->dispatch('swal',['icon'=>'success', 'title'=>'Bien echo!', 'text'=>'El producto se ha anadido al carrito de compras.']);
+        if (auth()->check()) {
+            Cart::store(auth()->id());
+        }
+        $this->dispatch('cartUpdate', Cart::count());
+        $this->dispatch('swal', ['icon' => 'success', 'title' => 'Bien echo!', 'text' => 'El producto se ha anadido al carrito de compras.']);
     }
     public function render()
     {
