@@ -96,7 +96,7 @@ You're already doing great by reaching chapter 27! Keep up the momentum.
 
 </details>
 <details>
-  <summary> Direcciones (10 pasos)</summary>
+  <summary> Direcciones (10 pasos) revisar!</summary>
 
   - [x] Agregar nuevos campos en la tabla users  
   - [x] Crear tabla addresses  
@@ -105,17 +105,27 @@ You're already doing great by reaching chapter 27! Keep up the momentum.
   - [x] Crear nueva direccion  
   - [x] Mostrar listado de direcciones agregadas  
   - [x] Mostrar direccion por defecto
-  - [x] Editar direccion  
-  - [ ] Eliminar direcciones  
-  - [ ] MOstrar el Resumen del carrito  
+  - [x] Editar direccion  ----------------CHECK
+  - [X] Eliminar direcciones  
+  - [X] Mostrar el Resumen del carrito  
 
 </details>
+<details>
+  <summary> Pasarela de Pago (9 pasos)</summary>
 
+  - [x] Diseñar Checkout  
+  - [x] Credenciales de Niubiz 
+  - [x] Generar token de sesion  
+  - [x] Inlcuir boton de pago  
+  - [x] Capturar pago  
+  - [x] Mostrar mensaje gracias
+  - [x] Mostrar mensaje error
+
+</details>
 ---
 
 ### ⏳ Pendientes
-
-- [ ] Pasarela de Pago  
+  
 - [ ] Administrar Órdenes  
 - [ ] Solucionar Errores  
 - [ ] Stock  
