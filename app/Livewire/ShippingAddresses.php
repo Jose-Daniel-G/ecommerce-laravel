@@ -46,8 +46,8 @@ class ShippingAddresses extends Component
     {
         Address::find($id)->delete();
         $this->addresses = Address::where('user_id', auth()->id())->get();
-        if (Address::where('default', true)->get()) {
-            $this->addresses->first()->update(['default']);
+        if ($this->addresses->where('default', true)->count() == 0 && $this->addresses->count()>0) {
+            $this->addresses->first()->update(['default'=>true]);
         }
     }
     public function setDefaultAddress($id)

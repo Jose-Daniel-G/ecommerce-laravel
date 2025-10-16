@@ -194,7 +194,8 @@
                     @if ($addresses->count())
                         <ul class="grid grid-cols-3 gap-4">
                             @foreach ($addresses as $address)
-                                <li class="{{ $address->default ? 'bg-blue-200' : 'bg-white' }} rounded-lg shadow">
+                                <li class="{{ $address->default ? 'bg-blue-200' : 'bg-white' }} rounded-lg shadow"
+                                    wire:key="addresses-{{$address->id}}">
                                     <div class="p-4 flex items-center">
                                         <div><i class="fa-solid fa-house text-xl text-blue-600"></i></div>
                                         <div class="flex-1 mx-4 text-xs">
