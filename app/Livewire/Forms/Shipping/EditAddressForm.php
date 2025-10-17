@@ -18,6 +18,7 @@ class EditAddressForm extends Form
     public $receiver = '';
     public $receiver_info = [];
     public $default = false;
+
     public function rules()
     {
         return [
@@ -53,19 +54,19 @@ class EditAddressForm extends Form
     {
         $this->id = $address->id;
         $this->type = $address->type;
-        $this->description = $this->description;
-        $this->district = $this->district;
-        $this->reference = $this->reference;
-        $this->receiver = $this->receiver;
-        $this->receiver_info = $this->receiver_info;
-        $this->default = $this->default;
+        $this->description = $address->description;
+        $this->district = $address->district;
+        $this->reference = $address->reference;
+        $this->receiver = $address->receiver;
+        $this->receiver_info = $address->receiver_info;
+        $this->default = $address->default;
     }
         public function update($id)
     {
         $this->validate();
         $address = Address::find($this->id);
         $address->update([
-            'name' => $this->name,
+            // 'name' => $this->name,
             'description' => $this->description,
             'district' => $this->district,
             'reference' => $this->reference,

@@ -13,17 +13,17 @@ class ShippingAddresses extends Component
     public $newAddresses = false;
     public CreateAddressForm $createAddress;
     public EditAddressForm $editAddress;
+
     public function mount()
     {
         $this->addresses = Address::where('user_id', auth()->id())->get();
         $this->createAddress->receiver_info = [
             'name' => auth()->user()->name,
-            'lastname' => auth()->user()->lastname,
+            'last_name' => auth()->user()->last_name,
             'document_type' => auth()->user()->document_type,
             'document_number' => auth()->user()->document_number,
             'email' => auth()->user()->email,
-            'phone' => auth()->user()->phone,
-            // 'password'=> auth()->user()->password,
+            'phone' => auth()->user()->phone, // 'password'=> auth()->user()->password,
         ];
     }
     public function store()
@@ -41,13 +41,15 @@ class ShippingAddresses extends Component
     {
         $this->editAddress->update();
         $this->addresses = Address::where('user_id', auth()->id())->get();
+        // $this->editAddress = new EditAddressForm();
     }
+
     public function deleteAddress($id)
     {
         Address::find($id)->delete();
         $this->addresses = Address::where('user_id', auth()->id())->get();
-        if ($this->addresses->where('default', true)->count() == 0 && $this->addresses->count()>0) {
-            $this->addresses->first()->update(['default'=>true]);
+        if ($this->addresses->where('default', true)->count() == 0 && $this->addresses->count() > 0) {
+            $this->addresses->first()->update(['default' => true]);
         }
     }
     public function setDefaultAddress($id)
@@ -60,4 +62,8 @@ class ShippingAddresses extends Component
     {
         return view('livewire.shipping-addresses');
     }
+    // public function cancelEdit()//CHATGPT
+    // {
+    //     $this->editAddress = new EditAddressForm(); // resetea el form
+    // }
 }

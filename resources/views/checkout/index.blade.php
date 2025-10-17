@@ -22,7 +22,7 @@
                             <li>
                                 <label class="p-4 flex items-center">
                                     <input type="radio" x-model="pago" value="2">
-                                    span.ml-2{Deposito Bancario o Yape}
+                                    <span class="ml-2">Deposito Bancario o Yape</span>
                                 </label>
                                 <div class="p-4 bg-gray-100 flex-justify-center border-t border-gray-400" x-show="pago==2">
                                     <div>

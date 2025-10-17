@@ -136,16 +136,16 @@
                         receiver_info: @entangle('editAddress.receiver_info')
                     }" x-init="$watch('receiver', value => {
                         if (value == 1) {
-                            receiver_info.name = '{{ auth()->user()->name }}';
-                            receiver_info.last_name = '{{ auth()->user()->last_name }}';
-                            receiver_info.document_type = '{{ auth()->user()->document_type }}';
-                            receiver_info.document_number = '{{ auth()->user()->document_number }}';
-                            receiver_info.phone = '{{ auth()->user()->phone }}';
+                            name = '{{ auth()->user()->name }}';
+                            last_name = '{{ auth()->user()->last_name }}';
+                            document_type = '{{ auth()->user()->document_type }}';
+                            document_number = '{{ auth()->user()->document_number }}';
+                            phone = '{{ auth()->user()->phone }}';
                         } else {
-                            receiver_info.name = '';
-                            receiver_info.last_name = '';
-                            receiver_info.document_number = '';
-                            receiver_info.phone = '';
+                            name = '';
+                            last_name = '';
+                            document_number = '';
+                            phone = '';
                         }
                     })">
                         <p class="font-semibold mb-4">¿Quién recibirá el pedido?</p>
@@ -182,11 +182,11 @@
                             </div>
 
                             <div>
-                                <button wire:click="$set('editAddresses.id', null)"
+                                <button wire:click="$set('editAddress.id', null)"
                                     class="btn btn-outline-gray w-full">Cancelar</button>
                             </div>
                             <div>
-                                <button wire:click="uodate()" class="btn btn-blue w-full">Actualizar</button>
+                                <button wire:click="update()" class="btn btn-blue w-full">Actualizar</button>
                             </div>
                         </div>
                     </div>
@@ -195,11 +195,12 @@
                         <ul class="grid grid-cols-3 gap-4">
                             @foreach ($addresses as $address)
                                 <li class="{{ $address->default ? 'bg-blue-200' : 'bg-white' }} rounded-lg shadow"
-                                    wire:key="addresses-{{$address->id}}">
+                                    wire:key="addresses-{{ $address->id }}">
                                     <div class="p-4 flex items-center">
                                         <div><i class="fa-solid fa-house text-xl text-blue-600"></i></div>
                                         <div class="flex-1 mx-4 text-xs">
-                                            <p class="text-blue-600">{{ $address->type == 1 ? 'Domicilio' : 'Oficina' }}</p>
+                                            <p class="text-blue-600">
+                                                {{ $address->type == 1 ? 'Domicilio' : 'Oficina' }}</p>
                                             <p class="text-gray-600 font-semibold">{{ $address->district }}</p>
                                             <p class="text-gray-600 font-semibold">{{ $address->description }}</p>
                                             <p class="text-gray-600 font-semibold">
@@ -217,16 +218,17 @@
                                 </li>
                             @endforeach
                         </ul>
+                        <button wire:click="$set('newAddresses', true)"
+                            class="btn btn-outline-gray w-full items-center justify-center mt-4">
+                            Agregar <i class="fa-solid fa-plus ml-2"></i>
+                        </button>
                     @else
                         <p class="text-center">No se han encontrado direcciones</p>
                     @endif
                 @endif
             @endif
 
-            <button wire:click="$set('newAddresses', true)"
-                class="btn btn-outline-gray w-full items-center justify-center mt-4">
-                Agregar <i class="fa-solid fa-plus ml-2"></i>
-            </button>
+
         </div>
     </section>
 </div>
