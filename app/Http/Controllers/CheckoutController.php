@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
+use App\Models\Order;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -48,6 +50,7 @@ class CheckoutController extends Controller
         ])->json();
         // dd($response);
         return $response['sessionKey'];
+        //---------------------------------
     }
     public function paid(Request $request)
     {
@@ -55,7 +58,7 @@ class CheckoutController extends Controller
         $merchant_id = config('services.niubiz.merchant_id');
 
         $url_api = config('services.niubiz.url_api') . "/api.ecommerce/v2/ecommerce/token/session/{$merchant_id}";
-        Http::withHeaders(['Authorization' => $access_token, 'Content-Type' => 'application/json'])
+        $response = Http::withHeaders(['Authorization' => $access_token, 'Content-Type' => 'application/json'])
             ->post($url_api, [
                 "chanel" => "web",
                 "capture_type" => "manual",
@@ -64,10 +67,26 @@ class CheckoutController extends Controller
                     "tokenId" => $request->transactionToken,
                     "purchaseNumber" => $request->purchasenumber,
                     "amount" => $request->amount,
-                    "currency" =>"PEN",
+                    "currency" => "PEN",
                     // "currency" => $request->currency,
                 ]
             ])->json();
         // return $request->all();
+        session()->flash('niubiz', ['response' => $response,"purchaseNumber" => $request->purchasenumber]);
+        if (isset($response['dataMap']) && $response['dataMap']['ACTION_CODE'] == '000') {
+            $address=Address::where('user_id',auth()->id())
+                    ->where('default',true)->first();
+
+            Order::create([
+                'user_id'=>auth()->id(),
+                'content'=>Cart::instance('shopping')->content(),
+                'address'=> $address,
+                'payment_id'=> $response['dataMap']['TRANSACTION_ID'],
+                'total'=> Cart::subtotal(),
+            ]);
+             Cart::destroy();
+            return redirect()->route('gracias');
+        }
+        return redirect()->route('checkout.index');
     }
 }

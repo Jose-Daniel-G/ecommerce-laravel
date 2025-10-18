@@ -21,7 +21,8 @@ Route::get('/cart', [CartController::class,'index'])->name('cart.index');
 Route::get('shipping', [ShipmentController::class,'index'])->name('shipping.index');
 Route::get('checkout', [CheckoutController::class,'index'])->name('checkout.index');
 Route::post('checkout/paid',[CheckoutController::class,'paid'])->name('checkout.paid');
-Route::post('drivers', DriverController::class  )->name('drivers');
+Route::get('gracias', function () {return view('gracias');})->name('gracias');
+// Route::post('drivers', DriverController::class  )->name('drivers');
 
 Route::post('/paginaRespuesta', function (Request $request) {
     // Aquí puedes manejar la respuesta del pago

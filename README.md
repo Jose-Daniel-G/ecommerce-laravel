@@ -3,8 +3,8 @@ Family
  └── Category
        └── Subcategory
 ```       
-27->37->48->57->78->82->91->102->106->15.5?
-    10  11  9   21  4   9   11    4
+27->37->48->57->78->82->91->102->109->12?->12?
+    10  11  9   21  4   9   11    7    
 YOU'VE TO MAKE 15 PER DAY
 
 Option → products
@@ -120,15 +120,15 @@ You're already doing great by reaching chapter 27! Keep up the momentum.
   - [x] Generar token de sesion  
   - [x] Inlcuir boton de pago  
   - [x] Capturar pago  
-  - [ ] Mostrar mensaje gracias
-  - [ ] Mostrar mensaje error
+  - [x] Mostrar mensaje gracias
+  - [x] Mostrar mensaje error
 
 </details>
 <details>
   <summary>Administrar Órdenes(15 pasos)</summary>
 
   - [x] Crear modelo order 
-  - [ ] Registrar orden
+  - [x] Registrar orden
   - [ ] Crear ticket de despacho
   - [ ] Crear ticket desde un observer
   - [ ] Crear ruta para administrar ordenes

@@ -48,12 +48,12 @@
             'route' => route('admin.drivers.index'),
             'active' => request()->routeIs('admin.drivers.*'),
         ],['header'=>'Ordenes y envios']
-        [
-            'icon' => 'fa-solid fa-truck',
-            'name' => 'Coductores',
-            'route' => route('admin.drivers.index'),
-            'active' => request()->routeIs('admin.drivers.*'),
-        ], 
+        // [
+        //     'icon' => 'fa-solid fa-truck',
+        //     'name' => 'Coductores',
+        //     'route' => route('admin.drivers.index'),
+        //     'active' => request()->routeIs('admin.drivers.*'),
+        // ], 
         [
             'icon' => 'fa-solid fa-shopping-cart',
             'name' => 'Ordenes',

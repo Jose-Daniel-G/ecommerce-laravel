@@ -82,20 +82,26 @@
                     </div>
                     <div>
                         <button onclick="VisanetCheckout.open()" class="btn btn-blue w-full">Finalizar pedido</button>
-                        {{-- <form action="paginaRespuesta" method="post">
+                        @if (session('nuibiz'))
+                            @php
+                                $niubiz = session('niubiz');
+                                $response = $niubiz['niubiz'];
+                                $purchaseNumber = $niubiz['purchaseNumber'];
+                            @endphp
+                            @isset($response['data'])
+                                <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 mt-8"
+                                    role="alert"> 
+                                    <p class="mt-4">{{$response['data']['ACTION_DESCRIPTION']}}</p>
+                                    <p><b>Numero de pedido</b>{{$purchaseNumber}}</p>
+                                    <p> <b> Fecha y hora del pedido</b>{{ now()->createFromFormat('ymdHis',$response['data']['TRANSACTION_DATE'])->format('d-m-Y H:i:s') }}</p>
+                                    @isset($response['data']['CARD'])
+                                    <p> <b>Tarjeta:</b>{{ $response['order']['CARD'] }}{{ $response['data']['BRAND'] }}</p>
+                                        
+                                    @endisset
 
-                            <script type="text/javascript" src="{{ config('services.niubiz.url_js') }}"
-                            data-sessiontoken="{{$session_token}}"
-                            data-channel="web"
-                            data-merchantid="{{config('services.niubiz.merchant_id')}}"
-                            data-purchasenumber="2020100901"
-                            data-amount="{{Cart::instance('shopping')->subtotal()}}"
-                            data-expirationminutes="20"
-                            data-timeouturl="about:blank"
-                            data-merchantlogo="img/comercio.png"
-                            data-formbuttoncolor="#000000"
-                            ></script>
-                        </form> --}}
+                                </div>
+                            @endisset
+                        @endif
                     </div>
                 </div>
             </div>
@@ -105,22 +111,22 @@
         <script type="text/javascript" src="{{ config('services.niubiz.url_js') }}"></script>
         <script type="text/javascript">
             document.addEventListener('DOMContentLoaded', function() {
-                    VisanetCheckout.configure({
-                        action: "{{ route('checkout/paid') }}",
-                        merchantid: "{{ config('services.niubiz.merchant_id') }}",
-                        sessiontoken: "{{ $session_token }}",
-                        amount: "{{ number_format((float) str_replace(',', '', Cart::instance('shopping')->subtotal()), 2, '.', '') }}",
-                        purchasenumber: "{{ uniqid() }}",
-                        channel: "web",
-                        expirationminutes: "20",
-                        timeouturl: "about:blank",
-                        merchantlogo: "{{ asset('img/comercio.png') }}",
-                        formbuttoncolor: "#000000",
-                        complete: function(params) {
-                            console.log('Transacción completada:', params);
-                            alert("Pago finalizado correctamente");
-                        }
-                    }); 
+                VisanetCheckout.configure({
+                    action: "{{ route('checkout/paid') }}",
+                    merchantid: "{{ config('services.niubiz.merchant_id') }}",
+                    sessiontoken: "{{ $session_token }}",
+                    amount: "{{ number_format((float) str_replace(',', '', Cart::instance('shopping')->subtotal()), 2, '.', '') }}",
+                    purchasenumber: "{{ uniqid() }}",
+                    channel: "web",
+                    expirationminutes: "20",
+                    timeouturl: "about:blank",
+                    merchantlogo: "{{ asset('img/comercio.png') }}",
+                    formbuttoncolor: "#000000",
+                    complete: function(params) {
+                        console.log('Transacción completada:', params);
+                        alert("Pago finalizado correctamente");
+                    }
+                });
             })
         </script>
     @endpush

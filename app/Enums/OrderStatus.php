@@ -9,6 +9,6 @@ enum OrderStatus: int
     case shipped = 3;
     case Completed = 4;
     case Cancelled = 5;
-    case Refounded = 6;
-    case Failed = 7;
+    case Failed = 6;
+    case Refounded = 7;
 }
