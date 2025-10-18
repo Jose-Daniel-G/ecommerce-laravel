@@ -14,9 +14,11 @@
                                     <span class="ml-2">Tarjeta de debito / credito</span>
                                     <img class="h-6 ml-auto" src="{{ asset('img/credit-cards.png') }}" alt="">
                                 </label>
-                                <div class="p-4 bg-gray-100 text-center border-t border-gray-400" x-cloak x-show="pago==1">
+                                <div class="p-4 bg-gray-100 text-center border-t border-gray-400" x-cloak
+                                    x-show="pago==1">
                                     <i class="fa-regular fa-credit-card text-9xl"></i>
-                                    <p class="mt-2">Luego de hacer click en "Pagar ahora", se abrira el checkout de Niubiz para completar tu compra de forma segura</p>
+                                    <p class="mt-2">Luego de hacer click en "Pagar ahora", se abrira el checkout de
+                                        Niubiz para completar tu compra de forma segura</p>
                                 </div>
                             </li>
                             <li>
@@ -24,7 +26,8 @@
                                     <input type="radio" x-model="pago" value="2">
                                     <span class="ml-2">Deposito Bancario o Yape</span>
                                 </label>
-                                <div class="p-4 bg-gray-100 flex-justify-center border-t border-gray-400" x-show="pago==2">
+                                <div class="p-4 bg-gray-100 flex justify-center border-t border-gray-400"
+                                    x-show="pago==2">
                                     <div>
                                         <p>1. pago por deposito o tranferencia bancarai</p>
                                         <p>- BCP pesos: 159-866545321-18</p>
@@ -43,13 +46,82 @@
             </div>
             <div class="col-span-1">
                 <div class="lg:max-w-[40rem] py-12 px-4 lg:pr-8 sm:pl-6 lg:pl-8 ml-auto">
+                    <ul class="space-y-4 mb-4">
+                        @foreach (Cart::instance('shopping')->content() as $item)
+                            <li class="flex items-center space-x-4">
+                                <div class="flex-shrink-0 relative">
+                                    <img class="h-16 aspect-square" src="{{ $item->options->image }}" alt="">
+                                    <div
+                                        class="flex justify-center items-center h-6 w-6 bg-gray-900 bg-opacity-70 rounded-full absolute -right-2 -top-2">
+                                        <span class="text-white font-semibold">{{ $item->qty }}</span>
+                                    </div>
 
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime quam odio, pariatur ab neque
-                        laborum
-                        at repellat magni? Distinctio eveniet sapiente veritatis neque optio. Maxime tempora ratione ut
-                        consectetur corporis.</p>
+                                </div>
+                                <div class="flex-1">
+                                    <p>{{ $item->name }}</p>
+                                </div>
+                                <div class="flex-shrink-0">
+                                    <p>${{ $item->price }}</p>
+                                </div>
+                            </li>
+                        @endforeach
+                    </ul>
+                    <div class="flex justify-between">
+                        <p>Subtotal</p>
+                        <p>{{ Cart::instance('shopping')->subtotal() }}</p>
+                    </div>
+                    <div class="flex justify-between">
+                        <p>Precio envio<i class="fas fa-info-circle" title="El precio de envio es de 5200 pesos"></i>
+                        </p>
+                        <p>$ 5200</p>
+                    </div>
+                    <hr class="my-3">
+                    <div class="flex justify-between mb-4">
+                        <p class="text-lg font-semibold">Total</p>
+                        <p> {{ (float) str_replace(',', '', Cart::instance('shopping')->subtotal()) + 5200 }}$</p>
+                    </div>
+                    <div>
+                        <button onclick="VisanetCheckout.open()" class="btn btn-blue w-full">Finalizar pedido</button>
+                        {{-- <form action="paginaRespuesta" method="post">
+
+                            <script type="text/javascript" src="{{ config('services.niubiz.url_js') }}"
+                            data-sessiontoken="{{$session_token}}"
+                            data-channel="web"
+                            data-merchantid="{{config('services.niubiz.merchant_id')}}"
+                            data-purchasenumber="2020100901"
+                            data-amount="{{Cart::instance('shopping')->subtotal()}}"
+                            data-expirationminutes="20"
+                            data-timeouturl="about:blank"
+                            data-merchantlogo="img/comercio.png"
+                            data-formbuttoncolor="#000000"
+                            ></script>
+                        </form> --}}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    @push('js')
+        <script type="text/javascript" src="{{ config('services.niubiz.url_js') }}"></script>
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', function() {
+                    VisanetCheckout.configure({
+                        action: "{{ route('checkout/paid') }}",
+                        merchantid: "{{ config('services.niubiz.merchant_id') }}",
+                        sessiontoken: "{{ $session_token }}",
+                        amount: "{{ number_format((float) str_replace(',', '', Cart::instance('shopping')->subtotal()), 2, '.', '') }}",
+                        purchasenumber: "{{ uniqid() }}",
+                        channel: "web",
+                        expirationminutes: "20",
+                        timeouturl: "about:blank",
+                        merchantlogo: "{{ asset('img/comercio.png') }}",
+                        formbuttoncolor: "#000000",
+                        complete: function(params) {
+                            console.log('Transacción completada:', params);
+                            alert("Pago finalizado correctamente");
+                        }
+                    }); 
+            })
+        </script>
+    @endpush
 </x-app-layout>

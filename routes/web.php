@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DriverController;
 use App\Http\Controllers\Admin\ShipmentController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
@@ -10,7 +11,7 @@ use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\WelcomeController; 
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Http\Request;
 Route::get('/', [WelcomeController::class,'index'])->name('welcome.index');
 Route::get('/families/{family}', [FamilyController::class,'show'])->name('families.show');
 Route::get('/categories/{category}', [CategoryController::class,'show'])->name('categories.show');
@@ -19,6 +20,14 @@ Route::get('/products/{product}', [ProductController::class,'show'])->name('prod
 Route::get('/cart', [CartController::class,'index'])->name('cart.index');
 Route::get('shipping', [ShipmentController::class,'index'])->name('shipping.index');
 Route::get('checkout', [CheckoutController::class,'index'])->name('checkout.index');
+Route::post('checkout/paid',[CheckoutController::class,'paid'])->name('checkout.paid');
+Route::post('drivers', DriverController::class  )->name('drivers');
+
+Route::post('/paginaRespuesta', function (Request $request) {
+    // Aquí puedes manejar la respuesta del pago
+    // Por ejemplo, mostrar los datos o guardarlos en la BD
+    dd($request->all());
+})->name('paginaRespuesta');
 
 
 Route::middleware([

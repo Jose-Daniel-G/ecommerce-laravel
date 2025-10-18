@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Driver;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DriverController extends Controller
@@ -14,7 +15,8 @@ class DriverController extends Controller
     // }
     public function index()
     {
-        //
+        // $users = User::all();
+        return view('admin.drivers.index');
     }
 
     /**
@@ -22,7 +24,8 @@ class DriverController extends Controller
      */
     public function create()
     {
-        //
+        $users = User::all();
+        return view('admin.drivers.create',compact('users'));
     }
 
     /**
@@ -30,7 +33,15 @@ class DriverController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'user_id'=>'required|exists:users,id',
+            'type'=>'required|in:1,2',
+            'plate_number'=>'required|string'
+        ]);
+        Driver::create($request->all());
+        session()->flash('swal',['icon'=>'success', 'title'=>'!Bien echo', 'text'=>'Categoria creada correctamente']);
+        return redirect()->route('admin.drivers.index');
+        // return $request->all();
     }
 
     /**
@@ -38,7 +49,7 @@ class DriverController extends Controller
      */
     public function show(Driver $driver)
     {
-        //
+        return view('admin.drivers.show');
     }
 
     /**
@@ -46,7 +57,7 @@ class DriverController extends Controller
      */
     public function edit(Driver $driver)
     {
-        //
+        return view('admin.drivers.edit');
     }
 
     /**

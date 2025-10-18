@@ -1,8 +1,10 @@
+```
 Family
  └── Category
        └── Subcategory
-27->37->48->57->78->82->91->102->15.5?->15.5?
-    10  11  9   21  4   9   11
+```       
+27->37->48->57->78->82->91->102->106->15.5?
+    10  11  9   21  4   9   11    4
 YOU'VE TO MAKE 15 PER DAY
 
 Option → products
@@ -96,7 +98,7 @@ You're already doing great by reaching chapter 27! Keep up the momentum.
 
 </details>
 <details>
-  <summary> Direcciones (10 pasos) revisar!</summary>
+  <summary> Direcciones (10 pasos)</summary>
 
   - [x] Agregar nuevos campos en la tabla users  
   - [x] Crear tabla addresses  
@@ -105,7 +107,7 @@ You're already doing great by reaching chapter 27! Keep up the momentum.
   - [x] Crear nueva direccion  
   - [x] Mostrar listado de direcciones agregadas  
   - [x] Mostrar direccion por defecto
-  - [x] Editar direccion  ----------------CHECK
+  - [x] Editar direccion 
   - [X] Eliminar direcciones  
   - [X] Mostrar el Resumen del carrito  
 
@@ -118,17 +120,45 @@ You're already doing great by reaching chapter 27! Keep up the momentum.
   - [x] Generar token de sesion  
   - [x] Inlcuir boton de pago  
   - [x] Capturar pago  
-  - [x] Mostrar mensaje gracias
-  - [x] Mostrar mensaje error
+  - [ ] Mostrar mensaje gracias
+  - [ ] Mostrar mensaje error
 
 </details>
----
+<details>
+  <summary>Administrar Órdenes(15 pasos)</summary>
 
-### ⏳ Pendientes
-  
-- [ ] Administrar Órdenes  
-- [ ] Solucionar Errores  
-- [ ] Stock  
+  - [x] Crear modelo order 
+  - [ ] Registrar orden
+  - [ ] Crear ticket de despacho
+  - [ ] Crear ticket desde un observer
+  - [ ] Crear ruta para administrar ordenes
+  - [ ] Instalar laravel-livewire-tables
+  - [ ] Mostrar Ordenes
+  - [ ] Descargar ticket
+  - [ ] Cambiar status a listo para despachar
+  - [x] Crear crud conductores    
+  - [ ] Listar conductores  
+  - [ ] Eliminar conductor  
+  - [ ] Generar envio de una orden
+  - [ ] Mostrar envios  
+  - [ ] Filtrar envios   
+
+</details>
+<details>
+  <summary>Solucionar Errores (5 pasos)</summary>
+
+  - [x] Agregar middleware auth al checkout
+  - [ ] Editar variantes *3  
+  - [ ] Refactorizar componente add-to cart
+
+</details>
+<details>
+  <summary>Stock (5 pasos)</summary>
+
+  - [x] Controlar stock que se agrega *2
+  - [ ] Descontar stock
+
+</details>
 <details>
   <summary>Laravel Permission (7 pasos)</summary>
 

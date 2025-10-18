@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('drivers', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete();
+            $table->integer('type')->default(1);
+            $table->string('plate_number')->nullable();
             $table->timestamps();
         });
     }
