@@ -175,6 +175,8 @@ You're already doing great by reaching chapter 27! Keep up the momentum.
 ![Ecommerce tailwind livewire](images/image.png)
 
 composer require hardevine/shoppingcart
+php artisan vendor:publish --provider="Gloudemans\Shoppingcart\ShoppingcartServiceProvider" --tag="migrations"
+
 php artisan event:generate
 
 CoverController / migration = image_path

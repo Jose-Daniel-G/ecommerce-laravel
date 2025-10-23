@@ -82,7 +82,7 @@
                     </div>
                     <div>
                         <button onclick="VisanetCheckout.open()" class="btn btn-blue w-full">Finalizar pedido</button>
-                        @dump(session('niubiz'))
+                        {{-- @dump(session('niubiz')) --}}
 
                         @if (session('niubiz'))
                             @php
@@ -125,7 +125,7 @@
                     timeouturl: "about:blank",
                     merchantlogo: "{{ asset('img/comercio.png') }}",
                     formbuttoncolor: "#000000",
-                    action: "{{ route('checkout.paid') }}?amount=" + amount + "&purchasenumber=" + purchaseNumber,
+                    action: "{{route('checkout.paid')}}?amount=" + amount + "&purchasenumber=" + purchaseNumber,
                     complete: function(params) {
                         console.log('Transacción completada:', params);
                         alert("Pago finalizado correctamente");

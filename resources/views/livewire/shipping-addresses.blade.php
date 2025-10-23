@@ -224,6 +224,10 @@
                         </button>
                     @else
                         <p class="text-center">No se han encontrado direcciones</p>
+                        <button wire:click="$set('newAddresses', true)"
+                            class="btn btn-outline-gray w-full items-center justify-center mt-4">
+                            Agregar <i class="fa-solid fa-plus ml-2"></i>
+                        </button>
                     @endif
                 @endif
             @endif

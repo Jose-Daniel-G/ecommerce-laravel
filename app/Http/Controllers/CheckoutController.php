@@ -15,6 +15,8 @@ class CheckoutController extends Controller
         $access_token = $this->generateAccessToken();
         $session_token = $this->generateSessionToken($access_token);
         // dump($access_token);
+            // 🔹 Generar un número de compra único por sesión
+
         // dump($session_token);
         // dd(["JD ACCESS_TOKEN:" => $access_token,"SESSION TOKEN:"=>$session_token]);
         return view('checkout.index', compact('session_token'));
@@ -25,7 +27,7 @@ class CheckoutController extends Controller
         $user = config('services.niubiz.user');
         $password = config('services.niubiz.password');
         $auth = base64_encode($user . ':' . $password);
-        return Http::withHeaders(['Authorization' => 'Basic ' . $auth])->post($url_api)->body();
+        return Http::withHeaders(['Authorization' => 'Basic ' . $auth])->get($url_api)->body();
         return $url_api;
     }
     public function generateSessionToken($access_token)
@@ -69,10 +71,10 @@ class CheckoutController extends Controller
                     "purchaseNumber" => $request->purchasenumber,
                     "amount" => $request->amount,
                     "currency" => "PEN",
-                    // "currency" => $request->currency,
                 ]
             ])->json();
-        return $response;
+        // dd($response);
+        // return $response;
         // return $request->all();
         session()->flash('niubiz', ['response' => $response,"purchaseNumber" => $request->purchasenumber]);
         if (isset($response['dataMap']) && $response['dataMap']['ACTION_CODE'] == '000') {

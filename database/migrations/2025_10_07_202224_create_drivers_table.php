@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('drivers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete();
+            $table->unsignedBigInteger('user_id')->nullable(); 
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('type')->default(1);
             $table->string('plate_number')->nullable();
             $table->timestamps();
