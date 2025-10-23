@@ -8,7 +8,8 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\FamilyController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubcategoryController;
-use App\Http\Controllers\WelcomeController; 
+use App\Http\Controllers\WelcomeController;
+use App\Models\Order;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
@@ -44,6 +45,11 @@ Route::middleware([
 
 
 Route::get('prueba',function(){
-    Cart::instance('shopping');
-    return Cart::content();
+    $order =Order::first();
+    // return $order;
+    return view('orders.ticket',compact('order'));
 });
+// Route::get('prueba',function(){
+//     Cart::instance('shopping');
+//     return Cart::content();
+// });

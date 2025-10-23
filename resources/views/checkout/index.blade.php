@@ -82,7 +82,9 @@
                     </div>
                     <div>
                         <button onclick="VisanetCheckout.open()" class="btn btn-blue w-full">Finalizar pedido</button>
-                        @if (session('nuibiz'))
+                        @dump(session('niubiz'))
+
+                        @if (session('niubiz'))
                             @php
                                 $niubiz = session('niubiz');
                                 $response = $niubiz['niubiz'];
@@ -95,7 +97,7 @@
                                     <p><b>Numero de pedido</b>{{$purchaseNumber}}</p>
                                     <p> <b> Fecha y hora del pedido</b>{{ now()->createFromFormat('ymdHis',$response['data']['TRANSACTION_DATE'])->format('d-m-Y H:i:s') }}</p>
                                     @isset($response['data']['CARD'])
-                                    <p> <b>Tarjeta:</b>{{ $response['order']['CARD'] }}{{ $response['data']['BRAND'] }}</p>
+                                    <p> <b>Tarjeta:</b>{{ $response['data']['CARD'] }}{{ $response['data']['BRAND'] }}</p>
                                         
                                     @endisset
 
@@ -111,17 +113,19 @@
         <script type="text/javascript" src="{{ config('services.niubiz.url_js') }}"></script>
         <script type="text/javascript">
             document.addEventListener('DOMContentLoaded', function() {
+                let purchaseNumber = Math.floor(Math.random() * 1000000000);
+                let amount = {{Cart::instance('shopping')->subtotal()}};
                 VisanetCheckout.configure({
-                    action: "{{ route('checkout/paid') }}",
-                    merchantid: "{{ config('services.niubiz.merchant_id') }}",
                     sessiontoken: "{{ $session_token }}",
-                    amount: "{{ number_format((float) str_replace(',', '', Cart::instance('shopping')->subtotal()), 2, '.', '') }}",
-                    purchasenumber: "{{ uniqid() }}",
                     channel: "web",
+                    merchantid: "{{ config('services.niubiz.merchant_id') }}",
+                    purchasenumber: purchaseNumber,
+                    amount: amount,
                     expirationminutes: "20",
                     timeouturl: "about:blank",
                     merchantlogo: "{{ asset('img/comercio.png') }}",
                     formbuttoncolor: "#000000",
+                    action: "{{ route('checkout.paid') }}?amount=" + amount + "&purchasenumber=" + purchaseNumber,
                     complete: function(params) {
                         console.log('Transacción completada:', params);
                         alert("Pago finalizado correctamente");

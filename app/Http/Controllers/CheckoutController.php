@@ -25,19 +25,19 @@ class CheckoutController extends Controller
         $user = config('services.niubiz.user');
         $password = config('services.niubiz.password');
         $auth = base64_encode($user . ':' . $password);
-        return Http::withHeaders(['Authorization' => 'Basic ' . $auth])->get($url_api)->body();
+        return Http::withHeaders(['Authorization' => 'Basic ' . $auth])->post($url_api)->body();
         return $url_api;
     }
     public function generateSessionToken($access_token)
     {
         $merchant_id = config('services.niubiz.merchant_id');
-        $url_api = config('services.niubiz.url_api') . "/api.ecommerce/v2/ecommerce/token/session/{$merchant_id} ";
+        $url_api = config('services.niubiz.url_api') . "/api.ecommerce/v2/ecommerce/token/session/{$merchant_id}";
         $response = Http::withHeaders([
             'Authorization' => $access_token,
             'Content-Type' => 'application/json'
         ])->post($url_api, [
             'channel' => 'web',
-            'amount' => floatval(str_replace('.', '', Cart::instance('shopping')->subtotal())), // cambio de , a . y ya no genera error
+            'amount' => (float) number_format((float) str_replace(',', '', Cart::instance('shopping')->subtotal()), 2, '.', ''), // cambio de , a . y ya no genera error
             'antifraud' => [
                 'clientIp' => request()->ip(),
                 'merchantDefineData' => [
@@ -57,10 +57,11 @@ class CheckoutController extends Controller
         $access_token = $this->generateAccessToken();
         $merchant_id = config('services.niubiz.merchant_id');
 
-        $url_api = config('services.niubiz.url_api') . "/api.ecommerce/v2/ecommerce/token/session/{$merchant_id}";
+        $url_api = config('services.niubiz.url_api') . "/api.authorization/v3/authorization/ecommerce/{$merchant_id}";
+
         $response = Http::withHeaders(['Authorization' => $access_token, 'Content-Type' => 'application/json'])
             ->post($url_api, [
-                "chanel" => "web",
+                "channel" => "web",
                 "capture_type" => "manual",
                 "contable" => true,
                 "order" => [
@@ -71,6 +72,7 @@ class CheckoutController extends Controller
                     // "currency" => $request->currency,
                 ]
             ])->json();
+        return $response;
         // return $request->all();
         session()->flash('niubiz', ['response' => $response,"purchaseNumber" => $request->purchasenumber]);
         if (isset($response['dataMap']) && $response['dataMap']['ACTION_CODE'] == '000') {
