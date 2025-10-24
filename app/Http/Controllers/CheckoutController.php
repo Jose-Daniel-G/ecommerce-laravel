@@ -14,10 +14,7 @@ class CheckoutController extends Controller
     {
         $access_token = $this->generateAccessToken();
         $session_token = $this->generateSessionToken($access_token);
-        // dump($access_token);
-            // 🔹 Generar un número de compra único por sesión
 
-        // dump($session_token);
         // dd(["JD ACCESS_TOKEN:" => $access_token,"SESSION TOKEN:"=>$session_token]);
         return view('checkout.index', compact('session_token'));
     }
@@ -27,8 +24,7 @@ class CheckoutController extends Controller
         $user = config('services.niubiz.user');
         $password = config('services.niubiz.password');
         $auth = base64_encode($user . ':' . $password);
-        return Http::withHeaders(['Authorization' => 'Basic ' . $auth])->get($url_api)->body();
-        return $url_api;
+        return Http::withHeaders(['Authorization' => 'Basic ' . $auth])->get($url_api)->body(); 
     }
     public function generateSessionToken($access_token)
     {
@@ -58,9 +54,8 @@ class CheckoutController extends Controller
     {
         $access_token = $this->generateAccessToken();
         $merchant_id = config('services.niubiz.merchant_id');
-
         $url_api = config('services.niubiz.url_api') . "/api.authorization/v3/authorization/ecommerce/{$merchant_id}";
-
+        
         $response = Http::withHeaders(['Authorization' => $access_token, 'Content-Type' => 'application/json'])
             ->post($url_api, [
                 "channel" => "web",
@@ -73,10 +68,10 @@ class CheckoutController extends Controller
                     "currency" => "PEN",
                 ]
             ])->json();
-        // dd($response);
+        //     \Log::info(['Niubiz Response: '=> $response]);
         // return $response;
         // return $request->all();
-        session()->flash('niubiz', ['response' => $response,"purchaseNumber" => $request->purchasenumber]);
+        // session()->flash('niubiz', ['response' => $response,"purchaseNumber" => $request->purchasenumber]);
         if (isset($response['dataMap']) && $response['dataMap']['ACTION_CODE'] == '000') {
             $address=Address::where('user_id',auth()->id())
                     ->where('default',true)->first();

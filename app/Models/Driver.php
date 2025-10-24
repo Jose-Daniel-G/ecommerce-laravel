@@ -13,8 +13,13 @@ class Driver extends Model
         'type',
         'plate_number',
     ];
-    
-    public function user(){
+
+    public function user()
+    {
         return $this->belongsTo(User::class);
+    }
+    public function shipments()
+    {
+        return $this->hasMany(Shipment::class);
     }
 }

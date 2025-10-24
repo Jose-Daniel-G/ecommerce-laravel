@@ -176,6 +176,8 @@ You're already doing great by reaching chapter 27! Keep up the momentum.
 
 composer require hardevine/shoppingcart
 php artisan vendor:publish --provider="Gloudemans\Shoppingcart\ShoppingcartServiceProvider" --tag="migrations"
+composer require rappasoft/laravel-livewire-tables
+php artisan vendor:publish --provider="Rappasoft\LaravelLivewireTables\LaravelLivewireTablesServiceProvider" --tag=livewire-tables-config
 
 php artisan event:generate
 

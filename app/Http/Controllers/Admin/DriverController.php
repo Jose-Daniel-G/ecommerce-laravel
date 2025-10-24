@@ -57,7 +57,8 @@ class DriverController extends Controller
      */
     public function edit(Driver $driver)
     {
-        return view('admin.drivers.edit');
+        $users=User::all();
+        return view('admin.drivers.edit',compact('drivers','users'));
     }
 
     /**
@@ -65,7 +66,10 @@ class DriverController extends Controller
      */
     public function update(Request $request, Driver $driver)
     {
-        //
+        $request->validate(['user_id'=>'required|exists:users,id','type'=>'required|in:1,2', 'plate_number' =>'required|string']);
+        $driver->update($request->all());
+        session()->flash('swal', ['icon' => 'success', 'title' => '!Bien echo', 'text' => 'Conuctor actualizado correctamente']);
+        return redirect()->route('admin.drivers.edit',$driver);
     }
 
     /**
@@ -73,6 +77,8 @@ class DriverController extends Controller
      */
     public function destroy(Driver $driver)
     {
-        //
+        $driver->delete();
+        session()->flash('swal', ['icon' => 'success', 'title' => '!Bien echo', 'text' => 'Conuctor se ha eliminado correctamente']);
+        return redirect()->route('admin.drivers.index',$driver);
     }
 }

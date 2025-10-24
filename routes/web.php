@@ -10,7 +10,9 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\WelcomeController;
 use App\Models\Order;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 Route::get('/', [WelcomeController::class,'index'])->name('welcome.index');
@@ -21,7 +23,7 @@ Route::get('/products/{product}', [ProductController::class,'show'])->name('prod
 Route::get('/cart', [CartController::class,'index'])->name('cart.index');
 Route::get('shipping', [ShipmentController::class,'index'])->name('shipping.index');
 Route::get('checkout', [CheckoutController::class,'index'])->name('checkout.index');
-Route::post('checkout/paid',[CheckoutController::class,'paid'])->name('checkout.paid');
+Route::post('checkout/paid',[CheckoutController::class,'paid'])->name('checkout.paid')->withoutMiddleware([ValidateCsrfToken::class]);
 Route::get('gracias', function () {return view('gracias');})->name('gracias');
 // Route::post('drivers', DriverController::class  )->name('drivers');
 
@@ -46,7 +48,9 @@ Route::middleware([
 
 Route::get('prueba',function(){
     $order =Order::first();
-    // return $order;
+    $pdf=Pdf::loadView('orders.ticket',compact('order'))->setPapper('a5');
+    $pdf->save(storage_path('app/public/tickets/ticket-'.$order->id.'.pdf'));
+    $order->pdf_path = 'tickets/ticket-'.$order->id.'.pdf';
     return view('orders.ticket',compact('order'));
 });
 // Route::get('prueba',function(){
