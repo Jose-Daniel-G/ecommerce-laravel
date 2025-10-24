@@ -129,16 +129,16 @@ You're already doing great by reaching chapter 27! Keep up the momentum.
 
   - [x] Crear modelo order 
   - [x] Registrar orden
-  - [ ] Crear ticket de despacho
-  - [ ] Crear ticket desde un observer
-  - [ ] Crear ruta para administrar ordenes
-  - [ ] Instalar laravel-livewire-tables
-  - [ ] Mostrar Ordenes
-  - [ ] Descargar ticket
-  - [ ] Cambiar status a listo para despachar
+  - [x] Crear ticket de despacho
+  - [x] Crear ticket desde un observer
+  - [x] Crear ruta para administrar ordenes
+  - [x] Instalar laravel-livewire-tables
+  - [x] Mostrar Ordenes
+  - [x] Descargar ticket
+  - [x] Cambiar status a listo para despachar
   - [x] Crear crud conductores    
-  - [ ] Listar conductores  
-  - [ ] Eliminar conductor  
+  - [x] Listar conductores  
+  - [x] Eliminar conductor  
   - [ ] Generar envio de una orden
   - [ ] Mostrar envios  
   - [ ] Filtrar envios   
