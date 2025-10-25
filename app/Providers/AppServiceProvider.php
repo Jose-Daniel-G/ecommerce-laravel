@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Models\Cover;
 use App\Models\Order;
+use App\Models\Product;
 use App\Observers\CoverObserver;
 use App\Observers\OrderObserver;
+use App\Observers\ProductObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -25,5 +27,6 @@ class AppServiceProvider extends ServiceProvider
     {
         Cover::observe(CoverObserver::class);
         Order::observe(OrderObserver::class);
+        Product::observe(ProductObserver::class);
     }
 }

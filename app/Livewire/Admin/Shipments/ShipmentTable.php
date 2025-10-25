@@ -1,0 +1,80 @@
+<?php
+
+namespace App\Livewire\Admin\Shipments;
+
+use App\Enums\OrderStatus;
+use App\Enums\ShipmentStatus;
+use Rappasoft\LaravelLivewireTables\DataTableComponent;
+use Rappasoft\LaravelLivewireTables\Views\Column;
+use App\Models\Shipment;
+use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
+
+class ShipmentTable extends DataTableComponent
+{
+    protected $model = Shipment::class;
+
+    public function configure(): void
+    {
+        $this->setPrimaryKey('id');
+    }
+
+    public function columns(): array
+    {
+        return [
+            Column::make("Id", "id")
+                ->sortable(),
+            Column::make("No.", "order_id")
+                ->sortable(),
+            Column::make("Conductor", "driver.user.name")
+                ->sortable(),
+            Column::make("Placa", "driver.plate_number")
+                ->sortable(),
+            Column::make("Status id", "status_id")
+                ->format(function ($value) {
+                    return $value->name;;
+                })
+                ->sortable(),
+            Column::make("actions")
+                ->format(function ($row) {
+                    return view('admin.shipments.actions', ['shipment' => $row]);
+                })
+                ->sortable(), 
+        ];
+    }
+    public function filter(): array
+    {   return [
+            SelectFilter::make('Status')
+                ->options([
+                    '' => 'Todos',
+                    1 => 'Pendiente',
+                    2 => 'Completado',
+                    3 => 'Fallido',
+                ])
+                ->filter(function ($query, $value) {
+                    if ($value !== '') {
+                        $query->where('status_id', $value);
+                    }
+                }),
+        ];
+    }
+    public function markAsCompleted(Shipment $shipment)
+    {    
+        $shipment->status_id = ShipmentStatus::Failed;  
+        $shipment->delivered_at = now();
+        $shipment->save();
+
+        $order = $shipment->order;
+        $order->status = OrderStatus::Completed;
+        $order->save();
+    }
+    public function markAsFailed(Shipment $shipment)
+    {
+        $shipment->status_id = ShipmentStatus::Failed;  
+        $shipment->delivered_at = now();
+        $shipment->save();
+
+        $order = $shipment->order;
+        $order->status = OrderStatus::Failed;
+        $order->save();
+    }
+}

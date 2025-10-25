@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('image_path');
             $table->float('price');
-            $table->integer('stock')->unsigned()->default(0);
+            // $table->integer('stock')->unsigned()->default(0);
             $table->foreignId('subcategory_id')->constrained('subcategories')->onDelete('cascade');
             $table->timestamps();
         });

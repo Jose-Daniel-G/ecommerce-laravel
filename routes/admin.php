@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ShipmentController;
 use App\Http\Controllers\Admin\SubcategoryController;
 use App\Http\Controllers\Admin\VariantController;
+use App\Http\Controllers\OrderController;
 use App\Livewire\Admin\UserComponent;
 use App\Models\Product;
 use App\Models\Variant;
@@ -31,10 +32,14 @@ Route::put('products/{product}/variants/{variant}', [ProductController::class, '
     ->name('products.variantsUpdate')
     ->scopeBindings();
 
+Route::get('/orders', [OrderController::class, 'index'])
+     ->name('orders.index');
+     
+Route::get('/shipments', [ShipmentController::class,'index'])->name('shipments.index'); 
 
 Route::resource('drivers', DriverController::class);
-Route::resource('orders', ShipmentController::class);
 Route::resource('covers', CoverController::class);
+Route::get('users', UserComponent::class)->name('admin.users.index');
 
 // Route::resource('products/{product}/variants/{variant}', [ProductController::class,'index'])
 //         ->name('products.variants')->scopeBindings();
@@ -52,4 +57,3 @@ Route::resource('covers', CoverController::class);
 // Route::get('departments', DepartmentComponent::class)->name('admin.departments.index');
 // Route::get('departments/{department}', ShowDepartment::class)->name('admin.departments.show');
 // Route::get('cities/{city}', CityComponent::class)->name('admin.cities.show');
-Route::get('users', UserComponent::class)->name('admin.users.index');

@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             FamilySeeder::class,
             OptionSeeder::class,
-            AdminSeeder::class,
+            UserSeeder::class,
         ]);
          Product::factory(150)->create();
     }

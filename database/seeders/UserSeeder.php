@@ -11,7 +11,7 @@ use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class AdminSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     public function run(): void
     {
@@ -36,6 +36,7 @@ class AdminSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => bcrypt('123123123'),
         ])->assignRole('superAdmin');
+        User::factory(100)->create();
 
     }
 }

@@ -49,22 +49,23 @@
             'active' => request()->routeIs('admin.orders.*'),
         ],
         [
+            'icon' => 'fa-solid fa-truck-fast',
+            'name' => 'Envios',
+            'route' => route('admin.shipments.index'),
+            'active' => request()->routeIs('admin.shipments.*'),
+        ], 
+        [
             'icon' => 'fa-solid fa-car',
             'name' => 'Conductores', 
             'route' => route('admin.drivers.index'),
             'active' => request()->routeIs('admin.drivers.*'),
         ],
+
         // [
         //     'icon' => 'fa-solid fa-truck',
         //     'name' => 'Coductores',
         //     'route' => route('admin.drivers.index'),
         //     'active' => request()->routeIs('admin.drivers.*'),
-        // ], 
-        // [
-        //     'icon' => 'fa-solid fa-shopping-cart',
-        //     'name' => 'Ordenes',
-        //     'route' => route('admin.orders.index'),
-        //     'active' => request()->routeIs('admin.orders.*'),
         // ], 
 
     ];

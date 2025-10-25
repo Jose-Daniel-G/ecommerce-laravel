@@ -30,7 +30,7 @@
         }
         .footer {
             text-align: center;
-            font-size: 12px;
+            font-size: 12px ;
         }
     </style>
 </head>

@@ -4,8 +4,9 @@
         'route' => route('admin.dashboard'),
     ],
     [
-        'name' => 'Orders',
+        'name' => 'Envios',
     ],
 ]"> 
-@livewire('admin.orders.order-table');
+@livewire('admin.shipments.shipment-table');
+
 </x-admin-layout>

@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Http;
 
 class CheckoutController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         $access_token = $this->generateAccessToken();

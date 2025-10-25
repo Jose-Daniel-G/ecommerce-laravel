@@ -3,8 +3,8 @@ Family
  └── Category
        └── Subcategory
 ```       
-27->37->48->57->78->82->91->102->109->12?->12?
-    10  11  9   21  4   9   11    7    
+27->37->48->57->78->82->91->102->109->125->12? = 133
+    10  11  9   21  4   9   11    7    16   
 YOU'VE TO MAKE 15 PER DAY
 
 Option → products
@@ -62,9 +62,7 @@ You're already doing great by reaching chapter 27! Keep up the momentum.
 
 - [x] Cabecera  
 
----
-
-### 🚧 En desarrollo
+--- 
 
 - [X] Portadas  
 <details>
@@ -139,9 +137,9 @@ You're already doing great by reaching chapter 27! Keep up the momentum.
   - [x] Crear crud conductores    
   - [x] Listar conductores  
   - [x] Eliminar conductor  
-  - [ ] Generar envio de una orden
-  - [ ] Mostrar envios  
-  - [ ] Filtrar envios   
+  - [x] Generar envio de una orden
+  - [x] Mostrar envios  
+  - [x] Filtrar envios   
 
 </details>
 <details>
