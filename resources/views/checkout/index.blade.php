@@ -73,12 +73,12 @@
                     <div class="flex justify-between">
                         <p>Precio envio<i class="fas fa-info-circle" title="El precio de envio es de 5200 pesos"></i>
                         </p>
-                        <p>$ 5200</p>
+                        <p>$ 5</p>
                     </div>
                     <hr class="my-3">
                     <div class="flex justify-between mb-4">
                         <p class="text-lg font-semibold">Total</p>
-                        <p> {{ (float) str_replace(',', '', Cart::instance('shopping')->subtotal()) + 5 }}$</p>
+                        <p> {{  Cart::instance('shopping')->subtotal() + 5 }}$</p>
                     </div>
                     <div>
                         <button onclick="VisanetCheckout.open()" class="btn btn-blue w-full">Finalizar pedido</button>
@@ -114,7 +114,7 @@
         <script type="text/javascript">
             document.addEventListener('DOMContentLoaded', function() {
                 let purchaseNumber = Math.floor(Math.random() * 1000000000);
-                let amount = {{Cart::instance('shopping')->subtotal()}};
+                let amount = parseFloat("{{ Cart::instance('shopping')->subtotal() }}");
                 VisanetCheckout.configure({
                     sessiontoken: "{{ $session_token }}",
                     channel: "web",

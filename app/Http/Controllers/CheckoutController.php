@@ -10,17 +10,16 @@ use Illuminate\Support\Facades\Http;
 
 class CheckoutController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
     public function index()
     {
         $access_token = $this->generateAccessToken();
         $session_token = $this->generateSessionToken($access_token);
-
-        // dd(["JD ACCESS_TOKEN:" => $access_token,"SESSION TOKEN:"=>$session_token]);
-        return view('checkout.index', compact('session_token'));
+        // return $session_token;
+        return view('checkout.index', compact('session_token')); // dd(["JD ACCESS_TOKEN:" => $access_token,"SESSION TOKEN:"=>$session_token]);
     }
     public function generateAccessToken()
     {
@@ -28,10 +27,14 @@ class CheckoutController extends Controller
         $user = config('services.niubiz.user');
         $password = config('services.niubiz.password');
         $auth = base64_encode($user . ':' . $password);
-        return Http::withHeaders(['Authorization' => 'Basic ' . $auth])->get($url_api)->body(); 
+        return Http::withHeaders(['Authorization' => 'Basic ' . $auth])->get($url_api)->body();
     }
     public function generateSessionToken($access_token)
     {
+        \Log::info('Niubiz Request SessionToken:', [
+            'amount' => floatval(str_replace(',', '', Cart::instance('shopping')->subtotal())),
+            'currency' => config('services.niubiz.currency'),
+        ]);
         $merchant_id = config('services.niubiz.merchant_id');
         $url_api = config('services.niubiz.url_api') . "/api.ecommerce/v2/ecommerce/token/session/{$merchant_id}";
         $response = Http::withHeaders([
@@ -39,7 +42,8 @@ class CheckoutController extends Controller
             'Content-Type' => 'application/json'
         ])->post($url_api, [
             'channel' => 'web',
-            'amount' => (float) number_format((float) str_replace(',', '', Cart::instance('shopping')->subtotal()), 2, '.', ''), // cambio de , a . y ya no genera error
+            'amount' => floatval(str_replace(',', '', Cart::instance('shopping')->subtotal())), // cambio de , a . y ya no genera error
+            'currency' => config('services.niubiz.currency'),
             'antifraud' => [
                 'clientIp' => request()->ip(),
                 'merchantDefineData' => [
@@ -56,38 +60,48 @@ class CheckoutController extends Controller
     }
     public function paid(Request $request)
     {
+        // dd($request->all());
+        \Log::info('Niubiz Request Authorization:', [
+            'amount' => $request->amount,
+            'currency' => config('services.niubiz.currency'),
+        ]);
         $access_token = $this->generateAccessToken();
         $merchant_id = config('services.niubiz.merchant_id');
         $url_api = config('services.niubiz.url_api') . "/api.authorization/v3/authorization/ecommerce/{$merchant_id}";
-        
-        $response = Http::withHeaders(['Authorization' => $access_token, 'Content-Type' => 'application/json'])
-            ->post($url_api, [
-                "channel" => "web",
-                "capture_type" => "manual",
-                "contable" => true,
-                "order" => [
-                    "tokenId" => $request->transactionToken,
-                    "purchaseNumber" => $request->purchasenumber,
-                    "amount" => $request->amount,
-                    "currency" => "PEN",
-                ]
-            ])->json();
-        //     \Log::info(['Niubiz Response: '=> $response]);
+
+        $response = Http::withHeaders([
+            'Authorization' => $access_token,
+            'Content-Type' => 'application/json'
+        ])->post($url_api, [
+            "channel" => "web",
+            "captureType" => "manual",
+            "contable" => true,
+            "order" => [
+                "tokenId" => $request->transactionToken,
+                "purchaseNumber" => $request->purchasenumber,
+                "amount" => $request->amount,
+                'currency' => config('services.niubiz.currency'),
+
+            ]
+        ]);
+
+        \Log::info('Niubiz Raw Response:', ['body' => $response->body(), 'status' => $response->status()]);
+
         // return $response;
         // return $request->all();
         // session()->flash('niubiz', ['response' => $response,"purchaseNumber" => $request->purchasenumber]);
         if (isset($response['dataMap']) && $response['dataMap']['ACTION_CODE'] == '000') {
-            $address=Address::where('user_id',auth()->id())
-                    ->where('default',true)->first();
+            $address = Address::where('user_id', auth()->id())
+                ->where('default', true)->first();
 
             Order::create([
-                'user_id'=>auth()->id(),
-                'content'=>Cart::instance('shopping')->content(),
-                'address'=> $address,
-                'payment_id'=> $response['dataMap']['TRANSACTION_ID'],
-                'total'=> Cart::subtotal(),
+                'user_id' => auth()->id(),
+                'content' => Cart::instance('shopping')->content(),
+                'address' => $address,
+                'payment_id' => $response['dataMap']['TRANSACTION_ID'],
+                'total' => Cart::subtotal(),
             ]);
-             Cart::destroy();
+            Cart::destroy();
             return redirect()->route('gracias');
         }
         return redirect()->route('checkout.index');

@@ -7,7 +7,7 @@
             </div>
         </header>
         <div class="p-6">
-            @if ($product->options->count())
+            @if ($this->product->options->count())
                 <div class="space-y-6">
                     @foreach ($product->options as $option)
                         <div wire:key="product-option-{{ $option->id }}"
@@ -66,6 +66,21 @@
                                     </div>
                                 @endforeach
                             </div>
+                            {{-- Nuevos Valores --}}
+                            <div class="flex space-x-4">
+                                <div class="flex-1"><x-label>Valor</x-label>
+                                    <x-select class="w-full" wire:model="new_feature.{{$option->id}}">
+                                        <option value="" selected disabled>Selecciona un valor</option>
+                                        @foreach ($this->getFeatures($option->id) as $feature)
+                                            <option value="{{$feature->id}}">{{$feature->description}}</option>
+                                        @endforeach
+                                    </x-select>
+                                </div>
+                                <div class="pt-6">
+                                <x-button wire:click="addNewFeature({{ $option->id }})" class="mt-6 ml-4">Agregar</x-button>
+
+                                </div>
+                            </div>
                         </div>
                     @endforeach
                 </div>
@@ -86,31 +101,31 @@
 
         </div>
     </section>
-    @if ($product->variants->count())
-        <section class="rounded-lg border border-gray-100 bg-white shadow-lg mb-12">
-            <header class="border-b px-6 py-2 border-gray-200">
-                <div class="flex justify-between">
-                    <h1 class="text-lg font-semibold text-gray-700">Variantes</h1>
-                </div>
-            </header>
-            <div class="p-6">
-                <ul class="divide-y -my-4">
-                    @foreach ($product->variants as $item)
-                        <li class="py-4 flex item-center"><img src="{{ $item->image }}"
-                                class="w-12 h-12 object-cover object-center">
-                            <p class="divide-x">
-                                @foreach ($item->features as $feature)
-                                    <span class="px-3">{{ $feature->description }}</span>
-                                @endforeach
-                            </p>
-                            <a href="{{ route('admin.products.variants', [$product, $item]) }}"
-                                class="ml-auto btn btn-blue">Editar</a>
-                        </li>
-                    @endforeach
-                </ul>
+    <section class="rounded-lg border border-gray-100 bg-white shadow-lg mb-12">
+        <header class="border-b px-6 py-2 border-gray-200">
+            <div class="flex justify-between">
+                <h1 class="text-lg font-semibold text-gray-700">Variantes</h1>
             </div>
-        </section>
-    @endif
+        </header>
+        <div class="p-6">
+            <ul class="divide-y -my-4">
+                @foreach ($product->variants as $item)
+                    <li class="py-4 flex item-center"><img src="{{ $item->image }}"
+                            class="w-12 h-12 object-cover object-center">
+                        <p class="divide-x">
+                            @forelse ($item->features as $feature)
+                                <span class="px-3">{{ $feature->description }}</span>
+                            @empty
+                                <span class="px-3">Variante principal</span>
+                            @endforelse
+                        </p>
+                        <button wire:click="editVariant({{ $item->id }})"
+                            class="ml-auto btn btn-blue">Editar</button>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+    </section>
 
     <x-dialog-modal wire:model="openModal">
         <x-slot name="title">Agregar nueva opcion</x-slot>
@@ -152,12 +167,26 @@
                 @endforeach
             </ul>
             <div class="flex justify-end">
-                <x-button wire:click="addFeature">Agregar valor</x-button>
+                <x-button wire:click="addFeature({{$option->id}})">Agregar valor</x-button>
             </div>
         </x-slot>
         <x-slot name="footer">
             <x-danger-button wire:click="$set('openModal',false)">Cancelar</x-danger-button>
             <x-button class="ml-2" wire:click="save">Guardar</x-button>
+        </x-slot>
+    </x-dialog-modal>
+    <x-dialog-modal wire:model="vatiantEdit">
+        <x-slot name="title">Editar Variante</x-slot>
+        <x-slot name="content">
+            <div class="mb-4">
+                <label>Stock</label>
+                <x-input wire:model="variantEdit.stock" class="w-full"></x-input>
+                <x-validation-errors for="vairiantEdit.stock"></x-validation-errors>
+            </div>
+        </x-slot>
+        <x-slot name="footer">
+            <x-danger-button x-on:click="show = false">Cancelar</x-danger-button>
+            <x-button class="ml-2" wire:click="updateVariant">Guardar</x-button>
         </x-slot>
     </x-dialog-modal>
     @push('js')

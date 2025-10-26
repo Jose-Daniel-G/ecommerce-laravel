@@ -5,6 +5,7 @@ namespace App\Livewire\Admin\Products;
 use App\Models\Feature;
 use App\Models\Option;
 use App\Models\Variant;
+use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
@@ -12,7 +13,7 @@ class ProductVariants extends Component
 {
     public $product;
     public $openModal = false;
-    public $options;
+    // public $options;
     public $variant = [
         'option_id' => '',
         'features' => [
@@ -23,10 +24,22 @@ class ProductVariants extends Component
             ]
         ],
     ];
-    public function mount($product)
+    public $variantEdit = [
+        'open' => false,
+        'id' => null,
+        'stock' => null,
+        'sku' => null,
+    ];
+    public $new_feature = [
+        // $option_id = $feature->id
+    ];
+    public function addNewFeature($option_id)
     {
-        // $this->product = $product->load('options');
-        $this->options = Option::all();
+        $this->new_feature[$option_id] = [
+            'id' => '',
+            'value' => '',
+            'description' => '',
+        ];
     }
 
     public function updateVariantOptionId()
@@ -44,6 +57,13 @@ class ProductVariants extends Component
     {
         return Feature::where('option_id', $this->variant['option_id'])->get();
     }
+    public function getFeatures($option_id)
+    {
+        $features = DB::table('option_product')->where('option_id', $this->product->id)
+            ->where('product_id', $option_id)
+            ->first();
+        return Feature::where('option_id', $option_id)->get();
+    }
     public function addFeature()
     {
         $this->variant['features'][] = [
@@ -51,6 +71,13 @@ class ProductVariants extends Component
             'value' => '',
             'description' => '',
         ];
+    }
+    #[Computed()]
+    public function options($product)
+    {
+        return Option::whereDoesntHave('products', function ($query) use ($product) {
+            $query->where('product_id', $product->id);
+        })->get();
     }
     public function feature_change($index)
     {
@@ -75,7 +102,12 @@ class ProductVariants extends Component
             })
         ]);
         $this->product = $this->product->fresh();
-        $this->generarVariantes();
+        $variants = Variant::where('product_id', $this->product->id)
+            ->whereHas('features', function ($query) use ($feature_id) {
+                $query->where('features.id', $feature_id);
+            })
+            ->get();
+        // $this->generarVariantes();
     }
     public function deleteOption($option_id)
     {
@@ -94,10 +126,13 @@ class ProductVariants extends Component
             'variant.features.*.id' => 'id del valor',
             'variant.features.*.value' => 'valor',
         ]);
-
+        $features = collect($this->variant['features']);
+        $features = $features->unique('id')->values()->all();
+        // dd($features);
         $this->product->options()->attach($this->variant['option_id'], ['features' => $this->variant['features']]);
-        $this->reset(['variant', 'openModal']);
+        $this->product = $this->product->fresh();
         $this->generarVariantes();
+        $this->reset(['variant', 'openModal']);
     }
     public function generarVariantes()
     {
@@ -120,12 +155,37 @@ class ProductVariants extends Component
         foreach ($arrays[$indice] as $item) {
             $combinacionTemporal = $combinacion;                             // Creamos una copia de la combinación parcial
             $combinacionTemporal[] = $item['id'];                            // Añadimos el ID del elemento actual a la combinación temporal. 
-            $resultado = array_merge($resultado, $this->generarCombinaciones(// 3. Llamada Recursiva: Avanzamos al siguiente array (índice + 1) 
-                $arrays, $indice + 1, $combinacionTemporal
+            $resultado = array_merge($resultado, $this->generarCombinaciones( // 3. Llamada Recursiva: Avanzamos al siguiente array (índice + 1) 
+                $arrays,
+                $indice + 1,
+                $combinacionTemporal
             ));
         }
         // 4. Devolvemos el array final de resultados.
         return $resultado;
+    }
+    public function editVariant(Variant $variant)
+    {
+        $this->variantEdit = [
+            'open' => true,
+            'id' => $variant->id,
+            'stock' => $variant->stock,
+            'sku' => $variant->sku,
+        ];
+    }
+    public function updateVariant(Variant $variant)
+    {
+        $this->validate([
+            'variantEdit.stock' => 'required|integer',
+            'variantEdit.sku' => 'required|string|unique:variants,sku,' . $this->variantEdit['id'],
+        ]);
+        $this->variant = Variant::find($this->variantEdit['id']);
+        $variant->update([
+            'stock' => $this->variantEdit['stock'],
+            'sku' => $this->variantEdit['sku'],
+        ]);
+        $this->reset('variantEdit');
+        $this->product = $this->product->fresh();
     }
     public function render()
     {
