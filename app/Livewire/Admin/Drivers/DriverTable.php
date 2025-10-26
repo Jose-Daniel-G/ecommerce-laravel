@@ -28,7 +28,7 @@ class DriverTable extends DataTableComponent
                         2 => 'Automovil',
                         default => 'Desconocido',
                     };
-                    return $value;
+                    return $type;
                 })
                 ->sortable(),
 
@@ -37,8 +37,8 @@ class DriverTable extends DataTableComponent
             Column::make("Nombre", "user.name")
                 ->sortable(),
             LinkColumn::make('Actions')
-                ->title(fn (Driver $row) => 'Ver')
-                ->location(fn (Driver $row) => route('admin.drivers.show', $row))
+                ->title(fn (Driver $row) => 'Edit')
+                ->location(fn (Driver $row) => route('admin.drivers.edit', $row))
                 ->attributes(function (Driver $row) {
                     return [
                         'class' => 'text-blue-600 hover:underline',

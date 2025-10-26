@@ -7,7 +7,7 @@
             'active' => request()->routeIs('admin.dashboard'),
         ],[ 'header' => 'Administrar pagina', ],
         [
-            'icon' => 'fa-solid fa-gue',
+            'icon' => 'fa-solid fa-gear',
             'name' => 'Opciones',
             'route' => route('admin.options.index'),
             'active' => request()->routeIs('admin.options.*'),

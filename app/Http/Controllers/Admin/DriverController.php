@@ -58,7 +58,7 @@ class DriverController extends Controller
     public function edit(Driver $driver)
     {
         $users=User::all();
-        return view('admin.drivers.edit',compact('drivers','users'));
+        return view('admin.drivers.edit',compact('driver','users'));
     }
 
     /**
@@ -79,6 +79,6 @@ class DriverController extends Controller
     {
         $driver->delete();
         session()->flash('swal', ['icon' => 'success', 'title' => '!Bien echo', 'text' => 'Conuctor se ha eliminado correctamente']);
-        return redirect()->route('admin.drivers.index',$driver);
+        return redirect()->route('admin.drivers.index');
     }
 }

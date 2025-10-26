@@ -7,6 +7,6 @@
         'name' => 'Envios',
     ],
 ]"> 
-@livewire('admin.shipments.shipment-table');
+@livewire('admin.shipments.shipment-table')
 
 </x-admin-layout>

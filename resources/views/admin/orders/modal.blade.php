@@ -5,7 +5,7 @@
 
     <x-slot name="content">
         <x-label>Unidad</x-label>
-        <x-select class="w-full" wire:model="new_shipment">
+        <x-select class="w-full" wire:model="new_shipment.driver_id">
             <option value="" disabled>Seleccione una unidad</option>
             @foreach ($drivers as $driver)
                 <option value="{{ $driver->id }}">{{ $driver->user->name }}</option>

@@ -16,6 +16,9 @@ class ShippingAddresses extends Component
 
     public function mount()
     {
+        if (!auth()->check()) {
+            return redirect()->route('login');
+        }
         $this->addresses = Address::where('user_id', auth()->id())->get();
         $this->createAddress->receiver_info = [
             'name' => auth()->user()->name,

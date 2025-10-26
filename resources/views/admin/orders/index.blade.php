@@ -7,5 +7,5 @@
         'name' => 'Orders',
     ],
 ]"> 
-@livewire('admin.orders.order-table');
+@livewire('admin.orders.order-table') 
 </x-admin-layout>

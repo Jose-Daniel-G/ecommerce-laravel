@@ -8,13 +8,12 @@ use App\Models\Driver;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\Order;
-use App\Models\Shipment;
-use Illuminate\Container\Attributes\Storage;
+use Illuminate\Support\Facades\Storage;
 
 class OrderTable extends DataTableComponent
 {
     protected $model = Order::class;
-    public $new_shipment = ['openModal' => true, 'order_id' => '', 'driver_id' => ''];
+    public $new_shipment = ['openModal' => false, 'order_id' => '', 'driver_id' => ''];
     public $drivers;
 
     public function mount()
@@ -38,13 +37,13 @@ class OrderTable extends DataTableComponent
                 })
                 ->sortable(),
             Column::make("F. orden", "created_at")
-                ->format(function () {
-                    return $this->created_at->format('d/m/Y');
+                ->format(function ($value) {
+                    return $value->format('d/m/Y');
                 })
                 ->sortable(),
             Column::make("total")
-                ->format(function () {
-                    return '$' . number_format($this->total, 2);
+                ->format(function ($value) {
+                    return '$' . number_format($value, 2);
                 })
                 ->sortable(),
             Column::make("Cantidad", "content")
@@ -66,6 +65,14 @@ class OrderTable extends DataTableComponent
     }
     public function downloadTicket(Order $order_id)
     {
+        if (empty($order->pdf_path) || !Storage::exists($order->pdf_path)) {
+            $this->dispatch('swal', [
+                'icon' => 'error',
+                'title' => 'Archivo no encontrado',
+                'text' => 'El ticket no está disponible para esta orden.',
+            ]);
+            return;
+        }
         return Storage::download($order_id->pdf_path);
     }
     public function markAsProccessing(Order $order)
@@ -86,12 +93,12 @@ class OrderTable extends DataTableComponent
         $order = Order::find($this->new_shipment['order_id']);
         $order->status = OrderStatus::Shipped;
         $order->save();
-        $order->saveShipment()->create([
-            'driver_id' => $this->new_shipment['driver_id'],
-            'shipped_at' => now(),
+        $order->shipments()->create([
+            'driver_id' => $this->new_shipment['driver_id']
         ]);
         $this->reset('new_shipment');
     }
+
     public function markAsRefounded(Order $order)
     {
         $order->status = OrderStatus::Refounded;
@@ -102,7 +109,7 @@ class OrderTable extends DataTableComponent
         $shipment->save();
     }
     public function cancelOrder(Order $order)
-    { 
+    {
         if ($order->status == ShipmentStatus::Shipped) {
             $this->dispatch('swal', [
                 'icon' => 'error',
@@ -111,8 +118,8 @@ class OrderTable extends DataTableComponent
             ]);
             return;
         }
-        if ($order->count() > 0) {
-            $this->dispatchBrowserEvent('swal', [
+        if ($order->status == ShipmentStatus::Failed) {
+            $this->dispatch('swal', [
                 'icon' => 'error',
                 'title' => 'No se puede cancelar la orden',
                 'text' => 'El pedido no ha sido enviado.',

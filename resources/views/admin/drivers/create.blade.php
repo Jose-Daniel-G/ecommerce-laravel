@@ -33,7 +33,7 @@
                 </div>
                 <div>
                     <x-label class="mb-1">Placa</x-label>
-                    <x-input class="w-full" name="placa_number" value="{{old('plate_number')}}" placeholder="Ingrese la placa vehiculo"></x-input>
+                    <x-input class="w-full" name="plate_number" value="{{old('plate_number')}}" placeholder="Ingrese la placa vehiculo"></x-input>
                 </div>
             </div>
             <div class="flex justify-end">

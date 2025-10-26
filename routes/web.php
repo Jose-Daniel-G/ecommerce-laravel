@@ -26,7 +26,6 @@ Route::get('shipping', [ShippingController::class,'index'])->name('shipping.inde
 Route::get('checkout', [CheckoutController::class,'index'])->name('checkout.index');
 Route::post('checkout/paid',[CheckoutController::class,'paid'])->name('checkout.paid')->withoutMiddleware([ValidateCsrfToken::class]);
 Route::get('gracias', function () {return view('gracias');})->name('gracias');
-// Route::post('drivers', DriverController::class  )->name('drivers');
 
 Route::post('/paginaRespuesta', function (Request $request) {
     // Aquí puedes manejar la respuesta del pago

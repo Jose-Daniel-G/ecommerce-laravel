@@ -29,19 +29,18 @@ class ShipmentTable extends DataTableComponent
                 ->sortable(),
             Column::make("Placa", "driver.plate_number")
                 ->sortable(),
-            Column::make("Status id", "status_id")
+            Column::make("Estados id", "status")
                 ->format(function ($value) {
-                    return $value->name;;
+                    return $value->name;
                 })
                 ->sortable(),
-            Column::make("actions")
-                ->format(function ($row) {
+            Column::make("Acciones")
+                ->label(function ($row) {
                     return view('admin.shipments.actions', ['shipment' => $row]);
-                })
-                ->sortable(), 
+                }), 
         ];
     }
-    public function filter(): array
+    public function filters(): array
     {   return [
             SelectFilter::make('Status')
                 ->options([
@@ -52,24 +51,24 @@ class ShipmentTable extends DataTableComponent
                 ])
                 ->filter(function ($query, $value) {
                     if ($value !== '') {
-                        $query->where('status_id', $value);
+                        $query->where('status', $value);
                     }
                 }),
         ];
     }
     public function markAsCompleted(Shipment $shipment)
     {    
-        $shipment->status_id = ShipmentStatus::Failed;  
+        $shipment->status = ShipmentStatus::Completed;  
         $shipment->delivered_at = now();
         $shipment->save();
 
         $order = $shipment->order;
         $order->status = OrderStatus::Completed;
         $order->save();
-    }
+    } 
     public function markAsFailed(Shipment $shipment)
     {
-        $shipment->status_id = ShipmentStatus::Failed;  
+        $shipment->status = ShipmentStatus::Failed;  
         $shipment->delivered_at = now();
         $shipment->save();
 

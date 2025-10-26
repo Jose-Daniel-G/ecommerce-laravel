@@ -40,7 +40,6 @@ return [
         'password' => env('NIUBIZ_PASSWORD'),
         'url_api' => env('NIUBIZ_URL_API'),
         'url_js' => env('NIUBIZ_URL_JS'),
-        'currency' => env('NIUBIZ_CURRENCY', 'PEN'),
     ],
 
 ];

@@ -23,13 +23,9 @@ Intense	5	41	~8 days	Just over 1 week
 Steady	3	41	~14 days	About 2 weeks
 Relaxed	1	41	41 days	About 6 weeks (1.5 months)
 
-Keep in mind:
-
-Chapter Length/Complexity: If the remaining chapters are longer or cover more complex topics (like the product CRUD and shopping cart), you might need to allocate more time for those.
-
-Practice: The best way to learn to program is to practice. Make sure you're not just watching the videos but actively writing the code and doing the exercises. This might slow down your completion time but will greatly increase your learning.
-
-You're already doing great by reaching chapter 27! Keep up the momentum.
+**FAILED**
+- Marcar como devuelto
+- Orders - cancelar
 
 ## 🚀 Módulos del Proyecto
 
@@ -182,3 +178,7 @@ ProductEdit  = image_path
 AddToCard  = image
 AddToCardVariants  = image
 Variants  = image_path
+
+php artisan optimize:clear
+php artisan view:clear
+php artisan livewire:discover

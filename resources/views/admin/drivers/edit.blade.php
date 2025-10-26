@@ -34,11 +34,11 @@
                 </div>
                 <div>
                     <x-label class="mb-1">Placa</x-label>
-                    <x-input class="w-full" name="placa_number" value="{{old('plate_number')}}" placeholder="Ingrese la placa vehiculo"></x-input>
+                    <x-input class="w-full" name="plate_number" value="{{old('plate_number',$driver->plate_number)}}" placeholder="Ingrese la placa vehiculo"></x-input>
                 </div>
             </div>
             <div class="flex justify-end space-x-2">
-                <x-button id="delete-button">Eliminar</x-button>
+                <x-danger-button id="delete-button">Eliminar</x-danger-button>
                 <x-button>Actualizar</x-button>
             </div>
         </form>
@@ -51,7 +51,7 @@
     @push('js')
         <script>
             document.getElementById('delete-button').addEventListener('click', function(){
-                // document.getElementById('delete-button').submit();
+                document.getElementById('deleteForm').submit();
             });
         </script>
     @endpush

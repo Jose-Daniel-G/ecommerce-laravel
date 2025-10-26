@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ShipmentStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,7 +12,7 @@ class Shipment extends Model
     protected $fillable=[
         'order_id','driver_id','status_id','refounded_at','delivered_at',
     ];
-    public $casts=['status'=>1,'refounded_at'=>'datetime','delivered_at'=>'datetime',];
+    public $casts=['status'=>ShipmentStatus::class,'refounded_at'=>'datetime','delivered_at'=>'datetime',];
 
     public function order(){
         return $this->belongsTo(Order::class);
