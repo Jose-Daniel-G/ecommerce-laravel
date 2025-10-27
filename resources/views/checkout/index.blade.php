@@ -21,7 +21,7 @@
                                         Niubiz para completar tu compra de forma segura</p>
                                 </div>
                             </li>
-                            <li>
+                            {{-- <li>
                                 <label class="p-4 flex items-center">
                                     <input type="radio" x-model="pago" value="2">
                                     <span class="ml-2">Deposito Bancario o Yape</span>
@@ -39,7 +39,7 @@
                                         <p> Enviar el comprobante a 986 654 321</p>
                                     </div>
                                 </div>
-                            </li>
+                            </li> --}}
                         </ul>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
             <div class="col-span-1">
                 <div class="lg:max-w-[40rem] py-12 px-4 lg:pr-8 sm:pl-6 lg:pl-8 ml-auto">
                     <ul class="space-y-4 mb-4">
-                        @foreach (Cart::instance('shopping')->content() as $item)
+                        @foreach ($content as $item)
                             <li class="flex items-center space-x-4">
                                 <div class="flex-shrink-0 relative">
                                     <img class="h-16 aspect-square" src="{{ $item->options->image }}" alt="">
@@ -68,17 +68,17 @@
                     </ul>
                     <div class="flex justify-between">
                         <p>Subtotal</p>
-                        <p>{{ Cart::instance('shopping')->subtotal() }}</p>
+                        <p>{{ $subtotal }}</p>
                     </div>
                     <div class="flex justify-between">
                         <p>Precio envio<i class="fas fa-info-circle" title="El precio de envio es de 5200 pesos"></i>
                         </p>
-                        <p>$ 5</p>
+                        <p>${{$delivery}}</p>
                     </div>
                     <hr class="my-3">
                     <div class="flex justify-between mb-4">
                         <p class="text-lg font-semibold">Total</p>
-                        <p> {{  Cart::instance('shopping')->subtotal() + 5 }}$</p>
+                        <p> ${{ $total }}</p>
                     </div>
                     <div>
                         <button onclick="VisanetCheckout.open()" class="btn btn-blue w-full">Finalizar pedido</button>
@@ -114,7 +114,7 @@
         <script type="text/javascript">
             document.addEventListener('DOMContentLoaded', function() {
                 let purchaseNumber = Math.floor(Math.random() * 1000000000);
-                let amount = parseFloat("{{ Cart::instance('shopping')->subtotal() }}");
+                let amount = {{ $total }};
                 VisanetCheckout.configure({
                     sessiontoken: "{{ $session_token }}",
                     channel: "web",

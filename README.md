@@ -3,11 +3,12 @@ Family
  └── Category
        └── Subcategory
 ```   
-### Pace	Chapters per Day	Remaining Chapters	  
+### Pace	Chapters per Day	
+#### Three weeks
+| 1| 2| 3| 4| 5| 6| 7| 8| 9| 10| 11| 12|
+|:-|:-|:-|:-|:-|:-|:-|:-|:-|:-|:-|:-|
+|27| 37| 48| 57| 78| 82| 91| 102|109| 125| 130| 133|
 
-27->37->48->57->78->82->91->102->109->125->127->133? = 133
-    10  11  9   21  4   9   11    7    16   2    6
-YOU'VE TO MAKE 15 PER DAY
 
 Option → products
 
@@ -22,6 +23,9 @@ Category → family
 Intense	5	41	~8 days	Just over 1 week
 Steady	3	41	~14 days	About 2 weeks
 Relaxed	1	41	41 days	About 6 weeks (1.5 months)
+
+- 93 design checkout check
+- 104 create ticket check
 
 
 ## 🚀 Módulos del Proyecto
@@ -135,15 +139,15 @@ Relaxed	1	41	41 days	About 6 weeks (1.5 months)
   <summary>Solucionar Errores (5 pasos)</summary>
 
   - [x] Agregar middleware auth al checkout
-  - [ ] Editar variantes *3  
-  - [ ] Refactorizar componente add-to cart
+  - [x] Editar variantes *3  
+  - [x] Refactorizar componente add-to cart
 
 </details>
 <details>
   <summary>Stock (5 pasos)</summary>
 
   - [x] Controlar stock que se agrega *2
-  - [ ] Descontar stock
+  - [x] Descontar stock
 
 </details>
 <details>
@@ -153,19 +157,21 @@ Relaxed	1	41	41 days	About 6 weeks (1.5 months)
   - [x] Definir Permisos  
   - [x] Definir Roles  
   - [x] Proteger rutas segun lo permisos  
-  - [ ] Mostrar listado de usuarios 
-  - [ ] Agregar Buscador  
-  - [ ] Asignar Rol 
+  - [x] Mostrar listado de usuarios 
+  - [x] Agregar Buscador  
+  - [x] Asignar Rol 
 
 </details>
 
 ![Ecommerce tailwind livewire](images/image.png)
 
+``` 
 composer require hardevine/shoppingcart
 php artisan vendor:publish --provider="Gloudemans\Shoppingcart\ShoppingcartServiceProvider" --tag="migrations"
+
 composer require rappasoft/laravel-livewire-tables
 php artisan vendor:publish --provider="Rappasoft\LaravelLivewireTables\LaravelLivewireTablesServiceProvider" --tag=livewire-tables-config
-
+```
 php artisan event:generate
 
 CoverController / migration = image_path

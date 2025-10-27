@@ -9,10 +9,10 @@ use Illuminate\Support\Facades\Storage;
 
 class CoverController extends Controller
 {
-    //public function __construct()
-    // {
-    //     $this->middleware('can:manage covers');
-    // }
+    public function __construct()
+    {
+        $this->middleware('can:manage covers');
+    }
     public function index()
     {
         $covers = Cover::orderBy('order')->get();

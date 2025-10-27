@@ -9,10 +9,10 @@ use Illuminate\Http\Request;
 
 class DriverController extends Controller
 {
-    //public function __construct()
-    // {
-    //     $this->middleware('can:manage drivers');
-    // }
+    public function __construct()
+    {
+        $this->middleware('can:manage drivers');
+    }
     public function index()
     {
         // $users = User::all();

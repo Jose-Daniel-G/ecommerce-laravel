@@ -1,32 +1,37 @@
 <div>
-    <div class="grid grid-cols-1lg: lg:grid-cols-7 gap-6">
+    <div class="grid grid-cols-1 lg:grid-cols-7 gap-6">
         <div class="lg:col-span-5">
             <div class="flex justify-between">
                 <h1 class="text-lg">Carrito de compras {{ Cart::count() }} productos</h1>
-                <button wire:click="destroy()" class="font-semibold text-gray-700 underline hover:no-underline hover:text-blue-400">Limpiar
-                    carro</button>
+                <button wire:click="destroy()"
+                    class="font-semibold text-gray-700 underline hover:no-underline hover:text-blue-400">Limpiar carro</button>
             </div>
             <div class="card">
                 <ul class="space-y-4">
                     @forelse (Cart::content() as $item)
-                        <li class="lg:flex"><img src="{{ $item->options->image }}"
-                                class="w-full lg:w-36 aspect-[16/9] object-cover object-center mr-2" alt="">
+                        <li class="lg:flex lg:items-center space-y-2 lg:space-y-0 {{$item->qty > $item->options['stock'] ? 'text-red-600':''}}"><img src="{{ $item->options->image }}"
+                                class="aspect-[16/9] w-full lg:w-36 object-cover object-center mr-2" alt="">
                             <div class="w-80">
-                                <p class="text-sm"><a href="{{ route('products.show', $item->id) }}">{{ $item->name }}</a></p>
-                                <button wire:click="remove('{{$item->rowId}}')"
+                                @if ($item->qty > $item->options['stock'])
+                                    <p class="font-semibold">¡Stock insuficiente!</p>
+                                @endif
+                                <p class="text-sm truncate"><a
+                                        href="{{ route('products.show', $item->id) }}">{{ $item->name }}</a></p>
+                                <button wire:click="remove('{{ $item->rowId }}')"
                                     class="bg-red-100 hover:bg-red-200 text-red-800 text-xs font-semibold rounded px-2.5 py-0.5"><i
                                         class="fa-solid fa-xmark"></i> Quitar</button>
                             </div>
                             <p>${{ $item->price }}</p>
                             <div class="ml-auto space-x-3">
-                                <button class="btn btn-gray" wire:click="decrease('{{$item->rowId}}')">-</button>
-                                <span class="inline-block w-2 text-center">{{$item->qty}}</span>
-                                <button class="btn btn-gray" wire:click="increase('{{$item->rowId}}')">+</button>
+                                <button class="btn btn-gray" wire:click="decrease('{{ $item->rowId }}')
+                                    @disabled( $item->qty <= $item->options['stock'] )">-</button>
+                                <span class="inline-block w-2 text-center">{{ $item->qty }}</span>
+                                <button class="btn btn-gray" wire:click="increase('{{ $item->rowId }}')"
+                                    @disabled( $item->qty >= $item->options['stock'] )>+</button>
                             </div>
                         </li>
-                        @empty
+                    @empty
                         <span class="font-medium font-semibold text-red-800">No!</span> hay Productos en el carrito.
-
                     @endforelse
                 </ul>
             </div>
@@ -35,9 +40,10 @@
             <div class="card">
                 <div class="flex justify-between font-semibold mb-2">
                     <p>Total:</p>
-                    <p>${{Cart::subtotal()}}</p>
+                    <p>${{ $this->subtotal }}</p>
                 </div>
-                <a href="{{route('shipping.index')}}" class="btn btn-blue block-inline w-full text-center">Continuar compra</a>
+                <a href="{{ route('shipping.index') }}" class="btn btn-blue block-inline w-full text-center">Continuar
+                    compra</a>
             </div>
         </div>
     </div>

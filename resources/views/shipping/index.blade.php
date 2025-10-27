@@ -16,8 +16,7 @@
                         <ul>
                             @foreach (Cart::content() as $item)
                                 <li class="flex item-center space-x-4">
-                                    <figure class="shrink-0"><img class="h-12 aspect-square"
-                                            src="{{ $item->options->image }}" alt=""></figure>
+                                    <figure class="shrink-0"><img class="h-12 aspect-square" src="{{ $item->options->image }}" alt=""></figure>
                                     <div class="flex-1">
                                         <p class="text-sm">{{ $item->name }}</p>
                                         <p>${{ $item->price }}</p>

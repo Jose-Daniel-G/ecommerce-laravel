@@ -27,6 +27,9 @@ class RoleSeeder extends Seeder
             'manage drivers',
             'manage orders',
             'manage shipments',]);
+        // $user = User::find(1);
+        // $user->assignRole('superAdmin');
+        $driver = Role::create(['name' => 'driver']);
         $secretaria = Role::create(['name' => 'secretaria']);
         $profesor = Role::create(['name' => 'profesor']);
         $cliente = Role::create(['name' => 'cliente']);
