@@ -5,8 +5,8 @@ Family
 ```   
 ### Pace	Chapters per Day	Remaining Chapters	  
 
-27->37->48->57->78->82->91->102->109->125->12? = 133
-    10  11  9   21  4   9   11    7    16   
+27->37->48->57->78->82->91->102->109->125->127->133? = 133
+    10  11  9   21  4   9   11    7    16   2    6
 YOU'VE TO MAKE 15 PER DAY
 
 Option → products
@@ -23,9 +23,6 @@ Intense	5	41	~8 days	Just over 1 week
 Steady	3	41	~14 days	About 2 weeks
 Relaxed	1	41	41 days	About 6 weeks (1.5 months)
 
-**FAILED**
-- Marcar como devuelto
-- Orders - cancelar
 
 ## 🚀 Módulos del Proyecto
 

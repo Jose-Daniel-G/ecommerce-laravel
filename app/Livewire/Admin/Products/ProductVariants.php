@@ -63,7 +63,7 @@ class ProductVariants extends Component
             ->where('product_id', $option_id)
             ->first();
         return Feature::where('option_id', $option_id)->get();
-    }
+    } 
     public function addFeature()
     {
         $this->variant['features'][] = [
@@ -73,10 +73,10 @@ class ProductVariants extends Component
         ];
     }
     #[Computed()]
-    public function options($product)
+    public function options()
     {
-        return Option::whereDoesntHave('products', function ($query) use ($product) {
-            $query->where('product_id', $product->id);
+        return Option::whereDoesntHave('products', function ($query) {
+            $query->where('product_id', $this->product->id);
         })->get();
     }
     public function feature_change($index)
@@ -101,18 +101,20 @@ class ProductVariants extends Component
                 return $feature['id'] != $feature_id;
             })
         ]);
-        $this->product = $this->product->fresh();
-        $variants = Variant::where('product_id', $this->product->id)
+         Variant::where('product_id', $this->product->id)
             ->whereHas('features', function ($query) use ($feature_id) {
                 $query->where('features.id', $feature_id);
-            })
-            ->get();
+            })->delete();
+
+        $this->product = $this->product->fresh();
+
         // $this->generarVariantes();
     }
     public function deleteOption($option_id)
     {
         $this->product->options()->detach($option_id);
         $this->product = $this->product->fresh();
+        $this->product->variants()->delete();
         $this->generarVariantes();
     }
     public function save()
@@ -129,8 +131,9 @@ class ProductVariants extends Component
         $features = collect($this->variant['features']);
         $features = $features->unique('id')->values()->all();
         // dd($features);
-        $this->product->options()->attach($this->variant['option_id'], ['features' => $this->variant['features']]);
-        $this->product = $this->product->fresh();
+        $this->product->options()->attach($this->variant['option_id'], ['features' => $features]);
+        // $this->product = $this->product->fresh();
+        $this->product->variants()->delete();
         $this->generarVariantes();
         $this->reset(['variant', 'openModal']);
     }
@@ -138,7 +141,7 @@ class ProductVariants extends Component
     {
         $features = $this->product->options->pluck('pivot.features');
         $combinaciones = $this->generarCombinaciones($features->toArray());
-        $this->product->variants()->delete();
+
         foreach ($combinaciones as $combinacion) {
             $variant = Variant::create(['product_id' => $this->product->id]);
             $variant->features()->attach($combinacion);
@@ -173,13 +176,13 @@ class ProductVariants extends Component
             'sku' => $variant->sku,
         ];
     }
-    public function updateVariant(Variant $variant)
+    public function updateVariant()
     {
         $this->validate([
             'variantEdit.stock' => 'required|integer',
             'variantEdit.sku' => 'required|string|unique:variants,sku,' . $this->variantEdit['id'],
         ]);
-        $this->variant = Variant::find($this->variantEdit['id']);
+        $variant = Variant::find($this->variantEdit['id']);
         $variant->update([
             'stock' => $this->variantEdit['stock'],
             'sku' => $this->variantEdit['sku'],

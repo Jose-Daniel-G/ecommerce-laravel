@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             OptionSeeder::class,
             UserSeeder::class,
         ]);
-         Product::factory(150)->create();
+        Product::factory(150)->create();
+        // $this->call([VariantSeeder::class]);
     }
 }

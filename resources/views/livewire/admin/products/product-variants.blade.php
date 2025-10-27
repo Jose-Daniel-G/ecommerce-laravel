@@ -65,22 +65,7 @@
                                         @endswitch
                                     </div>
                                 @endforeach
-                            </div>
-                            {{-- Nuevos Valores --}}
-                            <div class="flex space-x-4">
-                                <div class="flex-1"><x-label>Valor</x-label>
-                                    <x-select class="w-full" wire:model="new_feature.{{$option->id}}">
-                                        <option value="" selected disabled>Selecciona un valor</option>
-                                        @foreach ($this->getFeatures($option->id) as $feature)
-                                            <option value="{{$feature->id}}">{{$feature->description}}</option>
-                                        @endforeach
-                                    </x-select>
-                                </div>
-                                <div class="pt-6">
-                                <x-button wire:click="addNewFeature({{ $option->id }})" class="mt-6 ml-4">Agregar</x-button>
-
-                                </div>
-                            </div>
+                            </div> 
                         </div>
                     @endforeach
                 </div>
@@ -110,9 +95,9 @@
         <div class="p-6">
             <ul class="divide-y -my-4">
                 @foreach ($product->variants as $item)
-                    <li class="py-4 flex item-center"><img src="{{ $item->image }}"
-                            class="w-12 h-12 object-cover object-center">
+                    <li class="py-4 flex item-center"><img src="{{ $item->image }}" class="w-12 h-12 object-cover object-center">
                         <p class="divide-x">
+                            
                             @forelse ($item->features as $feature)
                                 <span class="px-3">{{ $feature->description }}</span>
                             @empty
@@ -135,7 +120,7 @@
                 <x-label class="mb-1">Opcion</x-label>
                 <x-select class="w-full" wire:model.live="variant.option_id">
                     <option value="" selected disabled>Seleccione una opcion</option>
-                    @foreach ($options as $option)
+                    @foreach ($this->options as $option)
                         <option value="{{ $option->id }}">{{ $option->name }}</option>
                     @endforeach
                 </x-select>
@@ -175,9 +160,15 @@
             <x-button class="ml-2" wire:click="save">Guardar</x-button>
         </x-slot>
     </x-dialog-modal>
-    <x-dialog-modal wire:model="vatiantEdit">
+    {{-- MODAL EDIT VARIANT --}}
+    <x-dialog-modal wire:model="variantEdit.open">
         <x-slot name="title">Editar Variante</x-slot>
         <x-slot name="content">
+            <div class="mb-4">
+                <label>Sku</label>
+                <x-input wire:model="variantEdit.sku" class="w-full"></x-input>
+                <x-validation-errors for="vairiantEdit.sku"></x-validation-errors>
+            </div>
             <div class="mb-4">
                 <label>Stock</label>
                 <x-input wire:model="variantEdit.stock" class="w-full"></x-input>

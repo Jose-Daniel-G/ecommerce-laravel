@@ -9,7 +9,7 @@ class VariantObserver
     public function created(Variant $variant)
     {
         if ($variant->product->options->count() == 0) {
-            $variant->product->sku;
+            $variant->sku = $variant->product->sku;
             $variant->save();
             return;
         }
