@@ -66,6 +66,20 @@
                                     </div>
                                 @endforeach
                             </div> 
+                            {{-- Nuevos Valores --}}
+                            <div class="flex space-x-4">
+                                <div class="flex-1"><x-label>Valor</x-label>
+                                    <x-select class="w-full" wire:model="new_feature.{{$option->id}}">
+                                        @foreach ($this->getFeatures($option->id) as $feature)
+                                            <option value="{{$feature->id}}">{{$feature->description}}</option>
+                                        @endforeach
+                                    </x-select>
+                                </div>
+                                <div class="pt-6">
+                                <x-button wire:click="addNewFeature({{ $option->id }})" class="mt-6 ml-4">Agregar</x-button>
+
+                                </div>
+                            </div>
                         </div>
                     @endforeach
                 </div>

@@ -59,11 +59,42 @@ class ProductVariants extends Component
     }
     public function getFeatures($option_id)
     {
-        $features = DB::table('option_product')->where('option_id', $this->product->id)
-            ->where('product_id', $option_id)
-            ->first();
-        return Feature::where('option_id', $option_id)->get();
+        $features = DB::table('option_product')
+            ->where('product_id', $this->product->id)
+            ->where('option_id', $option_id)
+            ->first()
+            ->features;
+       
+
+        $features = collect(json_decode($features))->pluck('id');
+
+        return Feature::where('option_id', $option_id)
+            ->whereNotIn('id', $features)->get();
     } 
+    public function addNewFeatureValue($option_id)
+    {
+        $this->validate([
+            'new_feature.' . $option_id . '.id' => 'required',
+            'new_feature.' . $option_id . '.value' => 'required',
+        ]);
+
+        $features = Feature::find($this->new_feature[$option_id]['id']);
+        $this->product->options()->updateExistingPivot($option_id, [
+            'features' => array_merge(
+                $this->product->options->find($option_id)->pivot->features,
+                [
+                    [
+                        'id' => $features->id,
+                        'value' => $features->value,
+                        'description' => $features->description,
+                    ]
+                ]
+            )
+        ]);
+        $this->product = $this->product->fresh();
+        $this->new_feature[$option_id] = '';
+        $this->generarVariantes();
+    }
     public function addFeature()
     {
         $this->variant['features'][] = [
@@ -143,6 +174,19 @@ class ProductVariants extends Component
         $combinaciones = $this->generarCombinaciones($features->toArray());
 
         foreach ($combinaciones as $combinacion) {
+
+            $variant = Variant::where('product_id', $this->product->id)
+                ->has('features', count($combinacion))
+                ->whereHas('features', function ($query) use ($combinacion) {
+                    $query->whereIn('features_id', $combinacion);
+                })
+                ->whereDoesntHave('features', function ($query) use ($combinacion) {
+                    $query->whereNotIn('features_id', $combinacion);
+                })
+                ->first();
+            if ($variant) {
+                continue;
+            }
             $variant = Variant::create(['product_id' => $this->product->id]);
             $variant->features()->attach($combinacion);
         }
