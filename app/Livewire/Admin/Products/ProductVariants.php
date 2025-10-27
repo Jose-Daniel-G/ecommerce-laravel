@@ -33,14 +33,14 @@ class ProductVariants extends Component
     public $new_feature = [
         // $option_id = $feature->id
     ];
-    public function addNewFeature($option_id)
-    {
-        $this->new_feature[$option_id] = [
-            'id' => '',
-            'value' => '',
-            'description' => '',
-        ];
-    }
+    // public function addNewFeature($option_id)
+    // {
+    //     $this->new_feature[$option_id] = [
+    //         'id' => '',
+    //         'value' => '',
+    //         'description' => '',
+    //     ];
+    // }
 
     public function updateVariantOptionId()
     {
@@ -71,14 +71,13 @@ class ProductVariants extends Component
         return Feature::where('option_id', $option_id)
             ->whereNotIn('id', $features)->get();
     } 
-    public function addNewFeatureValue($option_id)
+    public function addNewFeature($option_id)
     {
         $this->validate([
-            'new_feature.' . $option_id . '.id' => 'required',
-            'new_feature.' . $option_id . '.value' => 'required',
+            'new_feature.' . $option_id => 'required', 
         ]);
-
-        $features = Feature::find($this->new_feature[$option_id]['id']);
+        
+        $features = Feature::find($this->new_feature[$option_id]);
         $this->product->options()->updateExistingPivot($option_id, [
             'features' => array_merge(
                 $this->product->options->find($option_id)->pivot->features,
@@ -178,10 +177,10 @@ class ProductVariants extends Component
             $variant = Variant::where('product_id', $this->product->id)
                 ->has('features', count($combinacion))
                 ->whereHas('features', function ($query) use ($combinacion) {
-                    $query->whereIn('features_id', $combinacion);
+                    $query->whereIn('feature_id', $combinacion);
                 })
                 ->whereDoesntHave('features', function ($query) use ($combinacion) {
-                    $query->whereNotIn('features_id', $combinacion);
+                    $query->whereNotIn('feature_id', $combinacion);
                 })
                 ->first();
             if ($variant) {

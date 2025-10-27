@@ -70,6 +70,7 @@
                             <div class="flex space-x-4">
                                 <div class="flex-1"><x-label>Valor</x-label>
                                     <x-select class="w-full" wire:model="new_feature.{{$option->id}}">
+                                        <option value="" selected>Selecciona un valor</option>
                                         @foreach ($this->getFeatures($option->id) as $feature)
                                             <option value="{{$feature->id}}">{{$feature->description}}</option>
                                         @endforeach
